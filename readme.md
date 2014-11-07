@@ -1,0 +1,9 @@
+DiabetesPredictor
+=================
+
+Repository for CS 221 Type II Diabetes prediction algorithm
+
+## Introduction
+Over 25 million people, or nearly 8.3% of the entire United States population, have diabetes. Diabetes is also associated with a wide range of complications from heart disease and stroke to blindness and kidney disease. Predicting who has diabetes will lead to a better understanding of these complications and the common comorbidities that diabetics suffer. Based on the Kaggle Practice Fusion Diabetes Classification challenge, we aim to build a model to determine who has a diabetes diagnosis given a patient’s set of electronic health records. From the dataset provided by the challenge, we have full, standardized medical records of patients including allergy information, past diagnoses, immunization records, smoking status, etc. The expected output is a simple classification of whether a patient has diabetes. 
+
+Unlike the original competition, which assumes that the algorithm will have access to the full medical record of patients and that patients all have a standard database (e.g., exact same tests taken, same recorded variables) , we are interested in creating a model that assumes we only know part of the medical record as the input. For instance, if a patient has not undergone the full battery of tests as all the patients in the original training dataset had, or if we are missing information from a patient’s medical record, we want to still be able to classify and output whether the patient has diabetes based on the limited amount of information. In our project, the evaluation metric is the false positive and false negative rates, which when combined gives us the total error rate. 
