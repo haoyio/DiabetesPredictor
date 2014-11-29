@@ -138,6 +138,7 @@ function tabuSearch(bn::BayesNet, dataSet::DataFrame)
   tabuList = Dict{(Int, Symbol, Symbol), Bool}()
   opList = [(0, bn.names[1], bn.names[1])]
   maxNumNode = 15
+  bayesScoreTol = 0.0001
   
   # Initialize candidate solution
   bestBayesNet = generateRandomCandidateSolution(bn, dataSet)
@@ -192,7 +193,7 @@ function tabuSearch(bn::BayesNet, dataSet::DataFrame)
     
     # Check for improvement
     if logBayesScore(currBayesNet, dataSet) > 
-       logBayesScore(bestBayesNet, dataSet)
+       logBayesScore(bestBayesNet, dataSet) + bayesScoreTol
       execOp!(bestBayesNet, currOp)
       lastImprovement = 0
 

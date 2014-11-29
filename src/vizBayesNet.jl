@@ -7,15 +7,16 @@ using TikzPictures
 inname = ARGS[1]
 title = splitext(inname)[1]
 dataset = readtable(title * ".csv")
-outname = @sprintf("%s.pdf", title)
+outname = title * ".pdf"
 
 b = BayesNet(names(dataset))
-fin = open(inname, "r")
+fin = open(title * ".gph", "r")
 lines = readlines(fin)
 close(fin)
 for line in lines
   nodes = split(line, ", ")
-  src, tgt = convert(Symbol, nodes[1]), convert(Symbol, nodes[2][1:end-1])
+  src = convert(Symbol, nodes[1])
+  tgt = convert(Symbol, nodes[2][1:end-1])
   addEdge!(b, src, tgt)
 end # for line
 
