@@ -33,6 +33,9 @@ title = splitext(inname)[1]
 dataset = readtable(title * ".csv")
 
 b = BayesNet(names(dataset))
+b.domains = [DiscreteDomain([x for x in unique(dataset[label])]) 
+             for label in names(dataset)]
+
 name2index = b.index
 index2name = Dict{Int64,Symbol}()
 for key in keys(b.index)

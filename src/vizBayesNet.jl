@@ -10,6 +10,9 @@ dataset = readtable(title * ".csv")
 outname = title * ".pdf"
 
 b = BayesNet(names(dataset))
+b.domains = [DiscreteDomain([x for x in unique(dataset[label])]) 
+             for label in names(dataset)]
+
 fin = open(title * ".gph", "r")
 lines = readlines(fin)
 close(fin)

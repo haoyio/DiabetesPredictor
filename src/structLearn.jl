@@ -137,8 +137,8 @@ function tabuSearch(bn::BayesNet, dataSet::DataFrame)
   neighborhoodSz = 20 # stopping criterion
   tabuList = Dict{(Int, Symbol, Symbol), Bool}()
   opList = [(0, bn.names[1], bn.names[1])]
-  maxNumNode = 15
-  bayesScoreTol = 0.0001
+  maxNumNode = 20
+  bayesScoreTol = 0.00001
   
   # Initialize candidate solution
   bestBayesNet = generateRandomCandidateSolution(bn, dataSet)
