@@ -1,32 +1,30 @@
-import sys
-from Node import *
+from node import *
 
 class Tree:
+  
   def __init__(self, edgeFile):
     self.nodeDict = dict()
     self.loadNodes(edgeFile)
+
+  def getNode(self, id_num):
+    return self.nodeDict[id_num]
+
+  def retrieveOrCreateNode(self,id_num):
+    if id_num in self.nodeDict:
+      return self.nodeDict[id_num]
+    else:
+      self.nodeDict[id_num] = Node(id_num)
+      return self.nodeDict[id_num]
+
   #read in .gph file and populate nodes with data
   def loadNodes(self, edgeFile):
     fo = open(edgeFile)
-    line = fo.readline()
+    line = fo.readline().rstrip()
     while line:
-      node_ids = line.split()
-      id1 = node_ids[0]
-      id2 = node_ids[1]
-      node1 = None 
-      node2 = None
-      if id1 in self.nodeDict:
-        node1 = self.nodeDict[id1]
-      else:
-        node1 = Node(id1)
-      if id2 not in self.nodeDict:
-        node2 = Node(id2)
-      line = fo.readline()
+      node_ids = line.split(', ')
+      node1 = self.retrieveOrCreateNode(node_ids[0]) 
+      node2 = self.retrieveOrCreateNode(node_ids[1])
+      node1.addChild(node2)
+      node2.addParent(node1)
+      line = fo.readline().rstrip()
 
-def main(argv):
-  edgeFile = argv[0]
-  emrFile  = argv[1]
-  tree = Tree(edgeFile)
-
-if __name__ == "__main__":
-  main(sys.argv)

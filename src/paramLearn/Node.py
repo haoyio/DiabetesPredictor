@@ -16,5 +16,5 @@ class Node:
   def addChild(self, node):
     self.children.append(node)
 
-  def getID(self, node):
+  def getID(self):
     return self.id
