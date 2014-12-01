@@ -39,7 +39,7 @@ domains["code800999"] = [0,1]
 # initialize tree and paramLearn objects
 graph = Tree('output/train3.gph')
 print graph.nodeDict.keys()
-print str(len(graph.nodeDict)) + "nodes loaded into graph"
+print str(len(graph.nodeDict)) + " nodes loaded into graph"
 
 pLearn = ParamLearn('train2.csv')
 
@@ -85,12 +85,13 @@ def weightedChoice(choices, weights):
         return c
       up += w
 
-# Gibbs Sampling
+# Gibbs sampling
 iterNum = 10000
+
+print "Running Gibbs sampling for " + str(len(data)) + " samples"
+
 for row in range(len(data)):
   
-  print "Sample number " + str(row)
-
   # initialize withheldData[row]'s contents random values
   for name in withheldData[row]:
     withheldData[row][name] = random.choice(domains[name])
@@ -100,8 +101,6 @@ for row in range(len(data)):
     withheld = withheldData[row]
     newWithheld = {}
     
-    print "Iteration number " + str(iterIdx)
-
     # loop through labels in withheldData[row] and random sample 
     # based on weights  form newWithheld
     for name in withheldData[row]:
@@ -137,6 +136,8 @@ for row in range(len(data)):
                   for parent in graph.getNode("diabetes").getParents()}
   probabilities.append(getParentJointProb("diabetes", \
                        withheldData[row]["diabetes"], parentValues))
+
+  print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
 nCorrect = sum([1. if labels[i] - probabilities[i] > 0.2 else 0 for i in range(len(labels))])
