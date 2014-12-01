@@ -7,7 +7,7 @@ class ParamLearn:
   def __init__(self, countFile):
     self.pTable = PTable(countFile)
 
-  def getParentChildJointProb(node_id, node_val, parentDict, childDict):
+  def getParentChildJointProb(self, node_id, node_val, parentDict, childDict):
     
     jointParams = dict(parentDict.items()+childDict.items())
     jointCount = self.pTable.getCounts(jointParams)
@@ -18,7 +18,7 @@ class ParamLearn:
 
     return postCount*1.0 / jointCount  
 
-  def getParentJointProb(node_id, node_val, parentDict):
+  def getParentJointProb(self, node_id, node_val, parentDict):
      
     #parentCount
     params = parentDict
