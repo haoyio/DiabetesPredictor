@@ -2,22 +2,6 @@
 
 import sqlite3
 class PTable:
-  # def __init__(self, filename):
-  #   self.table = Counter()
-  #   self.loadTable(filename)
-  #   self.headers = []
-  
-  # def loadTable(self, filename):
-  #   fo = open(filename)
-
-  #   headers = fo.readline().rstrip()
-  #   self.headers = headers.split()
-
-  #   line = fo.readline().rstrip()
-  #   while line:
-  #     row = map(float, line.split(','))
-  #     table[row] += 1
-  #     line = fo.readline().rstrip()
 
   def __init__(self, filename):
     self.conn = sqlite3.connect('example.db')
