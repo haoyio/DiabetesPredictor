@@ -22,11 +22,11 @@ class ParamLearn:
      
     #parentCount
     params = parentDict
-    parentCount = self.pTable.getCounts()
+    parentCount = self.pTable.getCounts(params)
     #posteriorCount
     params = parentDict
     params[node_id] = node_val
-    postCount = self.pTable.getCounts()
+    postCount = self.pTable.getCounts(params)
 
     return postCount*1.0 / parentCount
 
