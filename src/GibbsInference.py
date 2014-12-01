@@ -89,11 +89,13 @@ def weightedChoice(choices, weights):
 iterNum = 10000
 for row in range(len(data)):
   
-  # initialize withheldData[row]'s contents  random values
+  print "Sample number " + str(row)
+
+  # initialize withheldData[row]'s contents random values
   for name in withheldData[row]:
     withheldData[row][name] = random.choice(domains[name])
   
-  # NOTE: should we have some convergence criteria instead?
+  # TODO: we need to have some convergence criteria; too slow!
   for iterIdx in range(iterNum):
     withheld = withheldData[row]
     newWithheld = {}
