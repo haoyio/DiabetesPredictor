@@ -17,24 +17,31 @@ domains["sBP"] = range(10, 225, 5)
 domains["dBP"] = range(0, 150, 5)
 domains["diabetes"] = [0,1]
 
-domains["code001to139"] = [0,1]
-domains["code140to239"] = [0,1]
-domains["code240to279"] = [0,1]
-domains["code280to289"] = [0,1]
-domains["code290to319"] = [0,1]
-domains["code320to359"] = [0,1]
-domains["code360to389"] = [0,1]
-domains["code390to459"] = [0,1]
-domains["code460to519"] = [0,1]
-domains["code520to579"] = [0,1]
-domains["code580to629"] = [0,1]
-domains["code630to679"] = [0,1]
-domains["code680to709"] = [0,1]
-domains["code710to739"] = [0,1]
-domains["code740to759"] = [0,1]
-domains["code760to779"] = [0,1]
-domains["code780to799"] = [0,1]
-domains["code800to999"] = [0,1]
+domains["code001139"] = [0,1]
+domains["code140239"] = [0,1]
+domains["code240279"] = [0,1]
+domains["code280289"] = [0,1]
+domains["code290319"] = [0,1]
+domains["code320359"] = [0,1]
+domains["code360389"] = [0,1]
+domains["code390459"] = [0,1]
+domains["code460519"] = [0,1]
+domains["code520579"] = [0,1]
+domains["code580629"] = [0,1]
+domains["code630679"] = [0,1]
+domains["code680709"] = [0,1]
+domains["code710739"] = [0,1]
+domains["code740759"] = [0,1]
+domains["code760779"] = [0,1]
+domains["code780799"] = [0,1]
+domains["code800999"] = [0,1]
+
+# initialize tree and paramLearn objects
+graph = Tree('output/train3.gph')
+print graph.nodeDict.keys()
+print str(len(graph.nodeDict)) + "nodes loaded into graph"
+
+pLearn = ParamLearn('train2.csv')
 
 nameMap = {}
 names = []
@@ -42,7 +49,7 @@ data = []
 withheldData = []
 labels = []
 probabilities = []
-with open('test.csv', 'rb') as csvfile:
+with open('test2.csv', 'rb') as csvfile:
   testreader = csv.reader(csvfile, dialect='excel')
   for row in testreader:
     for i in range(len(row)):
@@ -69,47 +76,58 @@ def weightedChoice(choices, weights):
   '''
   Weighted version of random.choice(); pass in choices and weights
   '''
-  total = sum(weights)
-  r = random.uniform(0, total)
-  upto = 0
+  tal = sum(weights)
+  r = random.uniform(0, tal)
+  up = 0
   for c in choices:
     for w in weights:
-      if upto + w > r:
+      if up + w > r:
         return c
-      upto += w
+      up += w
 
 # Gibbs Sampling
 iterNum = 10000
 for row in range(len(data)):
   
-  # initialize withheldData[row]'s contents to random values
+  # initialize withheldData[row]'s contents  random values
   for name in withheldData[row]:
     withheldData[row][name] = random.choice(domains[name])
   
   # NOTE: should we have some convergence criteria instead?
-  for _ in range(iterNum):
+  for iterIdx in range(iterNum):
     withheld = withheldData[row]
     newWithheld = {}
     
+    print "Iteration number " + str(iterIdx)
+
     # loop through labels in withheldData[row] and random sample 
-    # based on weights to form newWithheld
+    # based on weights  form newWithheld
     for name in withheldData[row]:
       
       jProbs = []
       for nodeValue in domains[name]:
-        # store parent and child values in dictionary
-        parentValues = {parent : data[row[nameMap[parent]]] \
+        
+        # get parent and child values in dictionary
+        parentValues = {parent.id : data[row][nameMap[parent.id]] \
                         for parent in graph.getNode(name).getParents()}
-        childrenValues = {child : data[row[nameMap[child]]] \
+        childrenValues = {child.id : data[row][nameMap[child.id]] \
                           for child in graph.getNode(name).getChildren()}
         
-        jProbs.append(getParentChildJointProb(name, nodeValue, \
+        # populate unknown variable with randomly chosen values
+        for name in withheldData[row]:
+          if name in parentValues:
+            parentValues[name] = withheldData[row][name]
+          if name in childrenValues:
+            childrenValues[name] = withheldData[row][name]
+
+        # compute weight/probability
+        jProbs.append(pLearn.getParentChildJointProb(name, nodeValue, \
                                               parentValues, childrenValues))
       
-      # assign value to unknown variable via weighted random sampling
+      # assign value  unknown variable via weighted random sampling
       newWithheld[name] = weightedChoice(domains[name], jProbs)
 
-    # set unknown variables to newly sampled values
+    # set unknown variables  newly sampled values
     withheldData[row] = newWithheld
   
   # record inferred value for current row 
