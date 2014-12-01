@@ -3,6 +3,7 @@ from node import *
 class Tree:
 
   # edgeFile  = e.g. train3.gph
+  
   def __init__(self, edgeFile):
     self.nodeDict = dict()
     self.loadNodes(edgeFile)
