@@ -86,7 +86,7 @@ def weightedChoice(choices, weights):
       up += w
 
 # Gibbs sampling
-iterNum = 10000
+iterNum = 1000
 
 print "Running Gibbs sampling for " + str(len(data)) + " samples"
 
@@ -132,9 +132,9 @@ for row in range(len(data)):
     withheldData[row] = newWithheld
   
   # record inferred value for current row 
-  parentValues = {parent : data[row[nameMap[parent]]] \
-                  for parent in graph.getNode("diabetes").getParents()}
-  probabilities.append(getParentJointProb("diabetes", \
+  parentValues = {parent.id : data[row][nameMap[parent.id]] \
+                        for parent in graph.getNode("diabetes").getParents()}
+  probabilities.append(pLearn.getParentJointProb("diabetes", \
                        withheldData[row]["diabetes"], parentValues))
 
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
