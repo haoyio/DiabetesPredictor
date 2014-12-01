@@ -1,12 +1,10 @@
 import sys
-from tree import *
 from probabilityTable import *
 
 class ParamLearn:
   
-  def __init__(self, edgeFile, countFile):
-    self.tree = Tree(edgeFile)
-    print str(len(tree.nodeDict)) + " nodes loaded to tree."
+  # countFile = e.g. train2.csv 
+  def __init__(self, countFile):
     self.pTable = PTable(countFile)
 
   def getParentChildJointProb(node_id, node_val, parentDict, childDict):
@@ -33,9 +31,8 @@ class ParamLearn:
     return postCount*1.0 / parentCount
 
 def main(argv):
-  edgeFile = argv[1]
-  countFile = argv[2]
-  pLearn = ParamLearn(edgeFile, countFile)
+  countFile = argv[1]
+  pLearn = ParamLearn(countFile)
 
 if __name__ == "__main__":
   main(sys.argv)
