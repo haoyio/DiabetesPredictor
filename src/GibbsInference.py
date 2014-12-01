@@ -5,6 +5,7 @@ import csv
 import random
 from paramLearn import *
 from tree import *
+import time
 
 domains = {}
 domains["state"] = ["AK","AL","AR","AZ","CA","CO","CT","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VA","VT","WA","WI","WV","WY"]
@@ -92,6 +93,8 @@ print "Running Gibbs sampling for " + str(len(data)) + " samples"
 
 for row in range(len(data)):
   
+  t = time.time()
+
   # initialize withheldData[row]'s contents random values
   for name in withheldData[row]:
     withheldData[row][name] = random.choice(domains[name])
