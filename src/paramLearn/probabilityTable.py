@@ -34,7 +34,7 @@ class PTable:
                 code740759 string,
                 code760779 string,
                 code780799 string,
-                code800999 string)''')   
+                code800999 string)''')
     self.loadTable(filename)
 
 
