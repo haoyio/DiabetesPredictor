@@ -35,6 +35,12 @@ class PTable:
                 code760779 string,
                 code780799 string,
                 code800999 string)''')
+
+    c.execute('''PRAGMA table_info(counts);''')
+    headers = c.fetchall()
+    for header in headers:
+        c.execute('''CREATE INDEX %s_index ON counts (%s);''' %(header[1], header[1]))
+
     self.loadTable(filename)
 
 
