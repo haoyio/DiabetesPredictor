@@ -20,7 +20,7 @@ class ParamLearn:
 
     return postCount*1.0 / jointCount  
 
-  def getParentJointProb(node_id,node_val, parentDict):
+  def getParentJointProb(node_id, node_val, parentDict):
      
     #parentCount
     params = parentDict
