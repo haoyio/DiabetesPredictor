@@ -1,9 +1,9 @@
 from node import *
+import sys
 
 class Tree:
 
   # edgeFile  = e.g. train3.gph
-  
   def __init__(self, edgeFile):
     self.nodeDict = dict()
     self.loadNodes(edgeFile)
@@ -32,7 +32,7 @@ class Tree:
 
 def main(argv):
   edgeFile = argv[1]
-  self.tree = Tree(edgeFile)
+  tree = Tree(edgeFile)
   print str(len(tree.nodeDict)) + " nodes loaded to tree."
 
 if __name__ == "__main__":
