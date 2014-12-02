@@ -145,8 +145,8 @@ for row in range(nSamples):
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
-nCorrect = sum([1. if float(labels[i]) - probabilities[i] > 0.3 else 0 \
-                for i in range(nSamples)])
+nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < 0.2 \
+                   else 0 for i in range(nSamples)])
 pCorrect = nCorrect / nSamples
 
 compareDict = {str(i) : (labels[i], probabilities[i]) for i in range(nSamples)}
