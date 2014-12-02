@@ -1,0 +1,339 @@
+% Template file for an a0 landscape poster.
+% Written by Graeme, 2001-03 based on Norman's original microlensing
+% poster.
+%
+% See discussion and documentation at
+% <http://www.astro.gla.ac.uk/users/norman/docs/posters/> 
+%
+% $Id: poster-template-landscape.tex,v 1.2 2002/12/03 11:25:46 norman Exp $
+
+
+% Default mode is landscape, which is what we want, however dvips and
+% a0poster do not quite do the right thing, so we end up with text in
+% landscape style (wide and short) down a portrait page (narrow and
+% long). Printing this onto the a0 printer chops the right hand edge.
+% However, 'psnup' can save the day, reorienting the text so that the
+% poster prints lengthways down an a0 portrait bounding box.
+%
+% 'psnup -w85cm -h119cm -f poster_from_dvips.ps poster_in_landscape.ps'
+
+\documentclass[a0]{a0poster}
+% You might find the 'draft' option to a0 poster useful if you have
+% lots of graphics, because they can take some time to process and
+% display. (\documentclass[a0,draft]{a0poster})
+\input defs
+\pagestyle{empty}
+\setcounter{secnumdepth}{0}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\QED}{~~\rule[-1pt]{8pt}{8pt}}\def\qed{\QED}
+
+\renewcommand{\reals}{{\mbox{\bf R}}}
+
+% The textpos package is necessary to position textblocks at arbitary 
+% places on the page.
+\usepackage[absolute]{textpos}
+
+\usepackage{fleqn,psfrag,wrapfig,tikz,amsmath, framed, scrextend,subcaption}
+\usepackage{mathtools,url}
+\DeclarePairedDelimiterX{\norm}[1]{\lVert}{\rVert}{#1}
+
+\usepackage[papersize={38in,28in}]{geometry}
+
+% Graphics to include graphics. Times is nice on posters, but you
+% might want to switch it off and go for CMR fonts.
+\usepackage{graphics}
+
+\renewenvironment{leftbar}[1][\hsize]
+{% 
+\def\FrameCommand 
+{%
+
+    {\color{black}\vrule width 0pt}%
+    \hspace{0pt}%must no space.
+    \fboxsep=\FrameSep\colorbox{white}%
+}%
+\MakeFramed{\hsize#1\advance\hsize-\width\FrameRestore}%
+}
+{\endMakeFramed}
+
+% we are running pdflatex, so convert .eps files to .pdf
+%\usepackage[pdftex]{graphicx}
+%\usepackage{epstopdf}
+
+% These colours are tried and tested for titles and headers. Don't
+% over use color!
+\usepackage{color}
+\definecolor{Red}{rgb}{0.9,0.0,0.1}
+
+\definecolor{bluegray}{rgb}{0.15,0.20,0.40}
+\definecolor{bluegraylight}{rgb}{0.35,0.40,0.60}
+\definecolor{gray}{rgb}{0.3,0.3,0.3}
+\definecolor{lightgray}{rgb}{0.7,0.7,0.7}
+\definecolor{darkblue}{rgb}{0.2,0.2,1.0}
+\definecolor{darkgreen}{rgb}{0.0,0.5,0.3}
+
+\renewcommand{\labelitemi}{\textcolor{bluegray}\textbullet}
+\renewcommand{\labelitemii}{\textcolor{bluegray}{--}}
+
+\setlength{\labelsep}{0.5em}
+
+
+% see documentation for a0poster class for the size options here
+\let\Textsize\normalsize
+%\def\Head#1{\noindent\hbox to \hsize{\hfil{\LARGE\color{bluegray} #1}}\bigskip}
+\def\Head#1{\noindent{\LARGE\color{bluegray} #1}\bigskip}
+\def\LHead#1{\noindent{\LARGE\color{bluegray} #1}\bigskip}
+\def\Subhead#1{\noindent{\large\color{bluegray} #1}\bigskip}
+\def\Title#1{\noindent{\VeryHuge\color{Red} #1}}
+
+
+% Set up the grid
+%
+% Note that [40mm,40mm] is the margin round the edge of the page --
+% it is _not_ the grid size. That is always defined as 
+% PAGE_WIDTH/HGRID and PAGE_HEIGHT/VGRID. In this case we use
+% 23 x 12. This gives us three columns of width 7 boxes, with a gap of
+% width 1 in between them. 12 vertical boxes is a good number to work
+% with.
+%
+% Note however that texblocks can be positioned fractionally as well,
+% so really any convenient grid size can be used.
+%
+\TPGrid[40mm,40mm]{23}{12}      % 3 cols of width 7, plus 2 gaps width 1
+
+\parindent=0pt
+\parskip=0.2\baselineskip
+
+\begin{document}
+
+% Understanding textblocks is the key to being able to do a poster in
+% LaTeX. In
+%
+%    \begin{textblock}{wid}(x,y)
+%    ...
+%    \end{textblock}
+%
+% the first argument gives the block width in units of the grid
+% cells specified above in \TPGrid; the second gives the (x,y)
+% position on the grid, with the y axis pointing down.
+
+% You will have to do a lot of previewing to get everything in the 
+% right place.
+
+% This gives good title positioning for a portrait poster.
+% Watch out for hyphenation in titles - LaTeX will do it
+% but it looks awful.
+\begin{textblock}{23}(0,0)
+\Title{Diabetes Prediction with Incomplete Patient Data}
+\end{textblock}
+
+\begin{textblock}{23}(0,0.6)
+{
+\LARGE
+Hao Yi Ong,
+Dennis Wang,
+Xiao Song Mu
+}
+
+{
+\Large
+\color{bluegray}
+\emph{CS 221: Introduction to Aritificial Intelligence Project}
+}
+\end{textblock}
+
+
+% Uni logo in the top right corner. A&A in the bottom left. Gives a
+% good visual balance, but you may want to change this depending upon
+% the graphics that are in your poster.
+%\begin{textblock}{2}(0,10)
+%Your logo here
+%%\includegraphics{/usr/local/share/images/AandA.epsf}
+%\end{textblock}
+
+%\begin{textblock}{2}(21.2,0)
+%Another logo here
+%%\resizebox{2\TPHorizModule}{!}{\includegraphics{/usr/local/share/images/GUVIu/GUVIu.eps}}
+%\end{textblock}
+
+
+\begin{textblock}{7.0}(0,1.5)
+
+\hrule\medskip
+\Head{Introduction}
+\begin{itemize}
+  
+  \item Desirable to have minimal flexing in a building, which is determined by how well the supporting truss structure is built
+  
+  \item A truss is defined by the size and shape of bars, and their attachment points (i.e., nodes) in some physical space \( \mathcal{D} \subset \mathbf{R}^{2} \) (for a 2-D structure)
+
+  \item Traditional approaches:
+  \begin{itemize}
+    \item Discretize the space for nodes: \(\hat{\mathcal{D}} \subset \mathbf{Z}^{2}\) (\eg, Ben-Tal \& Nemirovski)
+    \item Introduce complicated domain-specific heuristics (\eg, Wang et. al.)
+  \end{itemize}
+\end{itemize}
+
+
+\medskip
+\hrule\medskip
+\Head{Truss Topology Optimization}\\
+Produce
+\begin{itemize}
+\item \emph{Set of sized bars} \(\mathcal{B}\) that constitute a truss
+
+\item \emph{Set of attachment points or nodes} \(\mathcal{X}\) for the bars
+\end{itemize}
+Given
+\begin{itemize}
+\item \emph{Set of fixed nodes} \(\mathcal{X}^{\text{fixed}} \subset \mathcal{X} \) representing the truss foundation
+
+\item \emph{Set of loading forces} \(\mathcal{F}\) that the truss is to be designed to support
+
+\item \emph{Physical space} \( \mathcal{D}\) that limits where \(\mathcal{X}\) can be placed
+
+\item \emph{Maximum allowable weight of truss} \( W^{\text{max}} \)
+  
+\item \emph{Structural symmetry constraints}  
+\end{itemize}
+To maximize the truss stiffness, which is related to the elastic stored energy \( \Theta(\mathcal{F}, \mathcal{U}) \), where \( \mathcal{U} \) is the set of node deflections under load forces
+
+\medskip
+\hrule\medskip
+\Head{Problem Formulation}\\
+The design variables for our truss optimization are:
+\begin{itemize}
+\item \emph{Cross sectional areas} \(a \in \mathbf{R}^{m} \), where \(a_{i}\in \mathbf{R}\) is the area of the \(i^{th}\) bar
+
+\item \emph{Coordinates \(x \in \mathbf{R}^{2n} \)}, where \(x_{j}\in\mathbf{R}^{2}\) are the coordinates of the \(j^{th}\) node
+\end{itemize}
+
+Our problem data are:
+\begin{itemize}
+\item \emph{Loading forces} \(F\in\mathbf{R}^{2n}\), where \(F_{j}\in\mathbf{R}^{2}\) is the load on the \(j^{th}\) node
+
+\item \emph{Material densities \(\rho_{1},\ldots,\rho_{m} \in \mathbf{R} \)} of bars
+
+\item \emph{Young's moduli \(E_{1},\ldots,E_{m} \in \mathbf{R} \)} characterizing the elasticities of the bars
+
+\item \emph{Bar lengths \(L_{1},\ldots,L_{m} \in \mathbf{R} \)}, which are dependent on node coordinates \(x\)
+\end{itemize}
+\end{textblock}
+
+\begin{textblock}{7.0}(8,1.5)
+
+\hrule\medskip
+(Cont'd)
+\begin{itemize}
+\item \emph{Force mapping matrix \(P(\mathcal{X})\in\mathbf{R}^{m\times2n}\)}, which relates loads \(F\) to the internal stresses experienced by the bars, \(f\in\mathbf{R}^m \); implicit in \(P\) is an adjacency matrix relating each bar to its attachment points
+
+\item \emph{Stiffness matrix \(K(\mathcal{X}, a, L)\)}, which determines the amount of flex in the truss
+\[K = \sum\limits_{i=1}^{m}\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}p_{i}^{T},\]
+where \( p_{1},\ldots,p_{m} \) are the columns of the force mapping matrix \(P\)
+\end{itemize}
+
+Our truss design optimization is further characterized by the following variables, whose relations contain all of the physics of the problem:
+\begin{itemize}
+
+\item \emph{Node deflections} \(u\in\mathbf{R}^{2n}\) due to the truss flexing under loads \(F\), where \(u_{j}\in\mathbf{R}^{2}\) is the deflection of the \(j^{th}\) node; by Hooke's Law, we have the force balance \(F = Ku\)
+
+\item \emph{Internal stress \(f_{i}\in\mathbf{R}\)} experienced by each bar due to the node deflections
+\[f_{i} = -\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}^{T}u,\ \ \ i=1,\ldots,m\]
+
+\item \emph{Stored elastic energy} \(\Theta = \frac{1}{2}F^{T}u\), which we minimize in order to maximize the truss stiffness
+\end{itemize}
+
+
+\medskip
+
+\hrule\medskip
+\Head{An Alternating Convex Optimization Approach}
+The minimization of \(\Theta\) in \( \left(a,x\right) \) that follows from our formulation above is non-convex. As a heuristic to solve the optimization problem, we first optimize over the bar sizes \(a\), and then over the node coordinates \(x\):
+
+  \begin{itemize}
+  \item We perform a linear change of coordinates to cast the bar sizing problem as a second-order cone program (SOCP) in \(w, v\in\mathbf{R}^{m}\):
+    \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
+    \[w_{i} - v_{i} = a_{i}\]
+    The value of \(w_{i} + v_{i}\) is therefore the spring energy stored in the \(i^{th}\) bar
+  
+  \item Holding \(x\) constant, find the bar cross sectional areas \(a\) that minimize \(\Theta\):
+  {\small
+  \begin{equation}
+  \begin{array}{ll}
+  \mbox{minimize}   & \Theta = 1^{T}\left(w+v\right)\\
+  \mbox{subject to} & Pf + F = 0\\
+            & M\left(w-v\right) \leq d\\
+            & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m \\
+                & 1^{T}\left( w - v \right) \leq W^{max}
+  \end{array}
+  \label{cvxopt1}
+  \end{equation}
+  }
+  \item We then perform an affine change of coordinates to cast the node positioning problem as an SOCP in \(w, v\in\mathbf{R}^{m}\) (different from above):
+    \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
+    \[w_{i} - v_{i} = \frac{2p_{i}^{T}y_{i}}{L_{i}} + 1\]
+  \end{itemize}
+  
+  \end{textblock}
+  
+  \begin{textblock}{7.0}(16,1.5)
+  
+  \hrule
+  \medskip
+  (Cont'd)
+  
+  \begin{itemize}
+  \item Holding \(a\) constant, find a set of displacements \(y\in\mathbf{R}^{2n}\) that ``shift'' the node coordinates \(x\) from their original positions and minimize \(\Theta\):
+  {\small
+  \begin{equation}
+    \begin{array}{ll}
+    \mbox{minimize}   & \Theta = 1^{T}\left(w+v \right)\\
+    \mbox{subject to} & Pf+F = 0\\
+              & \frac{1}{2}\left( \left( w_{i} - v_{i} \right) - 1 \right) = \frac{p_{i}^{T}y_{i}}{L_{i}},\ \ \ i = 1,\ldots,m\\
+              & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}a_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m\\
+              & \|y_{i}\|_{2} \leq \epsilon_{i},\ \ \ i = 1,\ldots,m\\
+                  & g\left(y\right) = 0,
+    \end{array}
+    \label{cvxopt2}
+  \end{equation}
+  }
+  where \(g(y) = 0 \) enforces truss symmetry, and \(\|y_{i}\|_{2} \leq\epsilon_{i}\) restrict node shifts.
+  \end{itemize}
+  
+In our heuristic, we first discretize the physical space as in traditional approaches to obtain \(\hat{\mathcal{D}}\), and alternate between solving \eqref{cvxopt1} and \eqref{cvxopt2} in each iteration:
+\begin{addmargin}[2em]{0em}% 1em left, 2em right
+\begin{leftbar}
+{\small
+\begin{tabbing}
+    {\bf given} \(\mathcal{X}^{\text{fixed}}\), \(\mathcal{F} \), $ \mathcal{\hat{D}} $ \\*[\smallskipamount]
+    Generate set of node coordinates \(x^{0}\) from $\mathcal{\hat{D}} $, set \(x:=x^{0}\) \\*[\smallskipamount]
+    {\bf repeat} \\
+    \qquad \= 1.\ Given \(x\), obtain \(a\) and \(\Theta_{1} \) as the solution to and objective of \eqref{cvxopt1}\\
+    \> 2.\ Given \(a\), obtain \(y\) and \(\Theta_{2}\) as the solution to and objective of \eqref{cvxopt2}, set \(x := x + y\) \\
+    \> 3. {\bf break if} \(\Theta_{1}\) and \(\Theta_{2}\) converge \\*[\smallskipamount]
+    {\bf return} \(a\), \(x\)
+\end{tabbing}}
+\end{leftbar}
+\end{addmargin}
+\medskip
+
+\hrule\medskip
+\Head{Example: Bridge Design}
+
+
+This problem has 791 variables and 219 constraints. Out of several solvers, SCS was the fastest at 0.3 s per iteration (vs. 2.0 s with SeDuMi at comparable accuracy requirements). SCS's speed advantage scales with problem size (\url{~}100 times faster than SeDuMi with 16000 variables, 4000 constraints).
+\medskip
+
+\hrule\medskip
+\Head{Conclusion}\\
+Our alternating convex optimization approach presents a promising tool to solving the non-convex truss design problem. Future work should extend the model to 3-D and compare this approach to other existing methods.
+
+\medskip
+
+\hrule\medskip
+\Head{Acknowledgments}\\
+We thank Professor Liang and the instructor team, as well as fellow classmates for their help on our project.
+
+\end{textblock}
+
+\end{document}

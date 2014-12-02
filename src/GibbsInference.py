@@ -141,22 +141,41 @@ for row in range(nSamples):
     withheldData[row] = newWithheld
   
   # record inferred value for current row
+  childrenValues = {child.id : data[row][nameMap[child.id]] \
+                        for child in graph.getNode("diabetes").getChildren()}
   parentValues = {parent.id : data[row][nameMap[parent.id]] \
                         for parent in graph.getNode("diabetes").getParents()}
-  probabilities.append(pLearn.getParentJointProb("diabetes", \
-                       withheldData[row]["diabetes"], parentValues))
-
-  print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
+  for nm in withheldData[row]:
+    if nm in parentValues:
+      parentValues[nm] = withheldData[row][nm]
+    if nm in childrenValues:
+      childrenValues[nm] = withheldData[row][nm]
+  probabilities.append(pLearn.getParentChildJointProb("diabetes", \
+                        1, parentValues, childrenValues))
+                       #withheldData[row]["diabetes"], parentValues))
 
 # sort through probabilities and labels arrays and compare results
-LABEL_TOL = 0.2
-nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < LABEL_TOL \
-                   else 0 for i in range(nSamples)])
-pCorrect = nCorrect / nSamples
+LABEL_TOL = 0.5
+nCorrect = 0
+nFalsePos = 0
+nFalseNeg = 0
+for i in range(nSamples):
+  if labels[i] == '1' and probabilities[i] >= LABEL_TOL:
+    nCorrect += 1
+  elif labels[i] == '0' and probabilities[i] <= LABEL_TOL:
+    nCorrect += 1
+  elif labels[i] == '0' and probabilities[i] > LABEL_TOL:
+    nFalsePos += 1
+  else:
+    nFalseNeg += 1
+
+pCorrect = float(nCorrect) / nSamples
 
 compareDict = {str(i) : (labels[i], probabilities[i]) for i in range(nSamples)}
 
 print compareDict
 print "There were " + str(nCorrect) + " correct labels out of " + str(nSamples) + " samples"
 print "The error rate was " + str(1 - pCorrect)
+print "The false positive rate was " + str(float(nFalsePos)/nSamples)
+print "The false negative rate was " + str(float(nFalseNeg)/nSamples)
 print "Total cpu time was " + str(time.time() - tNet) + " sec"
