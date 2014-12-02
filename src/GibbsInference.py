@@ -145,10 +145,13 @@ for row in range(nSamples):
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
-nCorrect = sum([1. if float(labels[i]) - probabilities[i] > 0.2 else 0 for i in range(nSamples)])
+nCorrect = sum([1. if float(labels[i]) - probabilities[i] > 0.3 else 0 \
+                for i in range(nSamples)])
 pCorrect = nCorrect / nSamples
 
-print probabilities
+compareDict = {labels[i] : probabilities[i] for i in range(nSamples)}
+
+print compareDict
 print "There were " + str(nCorrect) + " correct labels out of " + str(nSamples) + " samples"
 print "The error rate was " + str(1 - pCorrect)
 print "Total cpu time was " + str(time.time() - tNet) + " sec"
