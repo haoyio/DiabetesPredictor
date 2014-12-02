@@ -6,6 +6,8 @@ import random
 from paramLearn import *
 from tree import *
 import time
+from numpy import cumsum, sort, sum, searchsorted
+from numpy.random import rand
 
 domains = {}
 domains["state"] = ["AK","AL","AR","AZ","CA","CO","CT","DE","FL","GA","HI","IA","ID","IL","IN","KS","KY","LA","MA","MD","ME","MI","MN","MO","MS","MT","NC","ND","NE","NH","NJ","NM","NV","NY","OH","OK","OR","PA","RI","SC","SD","TN","TX","UT","VA","VT","WA","WI","WV","WY"]
@@ -64,7 +66,7 @@ del names[nameMap["diabetes"]]
 
 # randomly delete 5 features from each row
 numDelete = 5
-random.seed(10)
+# random.seed(10)
 for row in data:
   withheld = {}
   random.shuffle(names)
@@ -73,20 +75,19 @@ for row in data:
   withheld["diabetes"] = 0
   withheldData.append(withheld)
 
-def weightedChoice(choices, weights):
-  '''
-  Weighted version of random.choice(); pass in choices and weights
-  '''
-  tal = sum(weights)
-  r = random.uniform(0, tal)
-  upto = 0
-  for c in choices:
-    for w in weights:
-      if upto + w > r:
-        return c
-      upto += w
 
-print str(weightedChoice([1, 2, 3, 4], [1, 2, 3, 4]))
+def weightedChoice(objects, weights):
+ """
+  Weighted random selection
+  returns n_picks random indexes.
+  the chance to pick the index i 
+  is give by the weight weights[i].
+ """
+ n_picks = 1
+ t = cumsum(weights)
+ s = sum(weights)
+ return objects[searchsorted(t,rand(n_picks)*s)]
+
 
 # Gibbs sampling
 iterNum = 1000
