@@ -1,5 +1,5 @@
 # Fdb version 3
-["pdflatex"] 1417522359 "cs221-poster.tex" "cs221-poster.pdf" "cs221-poster" 1417522360
+["pdflatex"] 1417522967 "cs221-poster.tex" "cs221-poster.pdf" "cs221-poster" 1417522969
   "/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii" 1337017135 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2014/texmf-dist/tex/generic/ifxetex/ifxetex.sty" 1284331290 1458 43ab4710dc82f3edeabecd0d099626b2 ""
   "/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/etexcmds.sty" 1335995445 7612 c47308d923ec19888707b0f1792b326a ""
@@ -112,11 +112,11 @@
   "/usr/local/texlive/2014/texmf-dist/tex/latex/url/url.sty" 1388531844 12796 8edb7d69a20b857904dd0ea757c14ec9 ""
   "/usr/local/texlive/2014/texmf-dist/tex/latex/wrapfig/wrapfig.sty" 1137111090 26220 3701aebf80ccdef248c0c20dd062fea9 ""
   "/usr/local/texlive/2014/texmf-dist/tex/latex/xcolor/xcolor.sty" 1169481954 55224 a43bab84e0ac5e6efcaf9a98bde73a94 ""
-  "cs221-poster.aux" 1417522360 166 04e5fc7c5a71aa4457d7861daf74d68c ""
-  "cs221-poster.tex" 1417522357 10013 fe104a3e5cef2285fe628a9eb5d1d5f8 ""
+  "cs221-poster.aux" 1417522969 166 04e5fc7c5a71aa4457d7861daf74d68c ""
+  "cs221-poster.tex" 1417522965 10157 38ef576ee758471b6d0be75fe6b6e4c2 ""
   "defs.tex" 1401163454 1066 8f96c49ac6d27de89f7987497da441ec ""
   "intro-fig.pdf" 1417516699 41894 32d2ea381073167b358158d10a3fe909 ""
   (generated)
   "cs221-poster.log"
-  "cs221-poster.pdf"
   "cs221-poster.aux"
+  "cs221-poster.pdf"

@@ -255,9 +255,11 @@ Xiao Song Mu
 
 \begin{itemize}
   
-  \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score as the scoring function, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009). The function is complicated and we do not include it here for brevity's sake.
+  \item \textbf{Feature selection} We manually selected 27 discretized features according to ICD9 disease groupings to limit the search space.
 
-  \item \textbf{NP-hard} Searching for the globally optimal structure is equivalent to searching over the space of all possible directed acyclic graphs, whose cardinality grows superexponentially with the number of nodes.
+  \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009).
+
+  \item \textbf{NP-hard} The number of directed acyclic graphs grows superexponentially with the number of nodes.
 
   \item \textbf{Tabu search} To find the optimal structure, we use a hill-climbing algorithm that maximizes the ``fitness'' of the BN based on the Bayesian score.
 
