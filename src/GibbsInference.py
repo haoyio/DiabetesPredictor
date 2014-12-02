@@ -103,8 +103,6 @@ for row in range(nSamples):
   
   # TODO: we need to have some convergence criteria; too slow!
   for iterIdx in range(iterNum):
-    withheld = withheldData[row]
-    newWithheld = {}
     
     # loop through labels in withheldData[row] and random sample 
     # based on weights  form newWithheld
@@ -131,11 +129,8 @@ for row in range(nSamples):
                                               parentValues, childrenValues))
       
       # assign value to unknown variable via weighted random sampling
-      newWithheld[name] = weightedChoice(domains[name], jProbs)
+      withheldData[row][name] = weightedChoice(domains[name], jProbs)
 
-    # set unknown variables to newly sampled values
-    withheldData[row] = newWithheld
-  
   # record inferred value for current row 
   parentValues = {parent.id : data[row][nameMap[parent.id]] \
                         for parent in graph.getNode("diabetes").getParents()}
