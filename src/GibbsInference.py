@@ -104,9 +104,10 @@ for row in range(nSamples):
   # TODO: we need to have some convergence criteria; too slow!
   for iterIdx in range(iterNum):
     withheld = withheldData[row]
+    newWithheld = {}
     
     # loop through labels in withheldData[row] and random sample 
-    # based on weights
+    # based on weights  form newWithheld
     for name in withheldData[row]:
       
       jProbs = []
@@ -126,12 +127,15 @@ for row in range(nSamples):
             childrenValues[name] = withheldData[row][name]
 
         # compute weight/probability
-        jProbs.append(pLearn.getParentChildJointProb(name, nodeValue, \
-                                              parentValues, childrenValues))
+        jProbs.append(pLearn.getParentChildJointProb( \
+                      name, nodeValue, parentValues, childrenValues))
       
       # assign value to unknown variable via weighted random sampling
-      withheldData[row][name] = weightedChoice(domains[name], jProbs)
+      newWithheld[name] = weightedChoice(domains[name], jProbs)
 
+    # set unknown variables to newly sampled values
+    withheldData[row] = newWithheld
+  
   # record inferred value for current row 
   parentValues = {parent.id : data[row][nameMap[parent.id]] \
                         for parent in graph.getNode("diabetes").getParents()}
