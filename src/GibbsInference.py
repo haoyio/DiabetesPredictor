@@ -79,15 +79,15 @@ def weightedChoice(choices, weights):
   '''
   tal = sum(weights)
   r = random.uniform(0, tal)
-  up = 0
+  upto = 0
   for c in choices:
     for w in weights:
-      if up + w > r:
+      if upto + w > r:
         return c
-      up += w
+      upto += w
 
 # Gibbs sampling
-iterNum = 1000
+iterNum = 5000
 nSamples = 10 # len(data)
 
 print "Running Gibbs sampling for " + str(nSamples) + " samples"
@@ -130,10 +130,10 @@ for row in range(nSamples):
         jProbs.append(pLearn.getParentChildJointProb(name, nodeValue, \
                                               parentValues, childrenValues))
       
-      # assign value  unknown variable via weighted random sampling
+      # assign value to unknown variable via weighted random sampling
       newWithheld[name] = weightedChoice(domains[name], jProbs)
 
-    # set unknown variables  newly sampled values
+    # set unknown variables to newly sampled values
     withheldData[row] = newWithheld
   
   # record inferred value for current row 
@@ -145,7 +145,7 @@ for row in range(nSamples):
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
-nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < 0.2 \
+nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < 0.3 \
                    else 0 for i in range(nSamples)])
 pCorrect = nCorrect / nSamples
 
