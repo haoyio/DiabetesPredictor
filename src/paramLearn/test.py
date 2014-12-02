@@ -5,7 +5,9 @@ import tree
 class TestSubmission(unittest.TestCase):
 
     def test_one(self):
-        tree = Tree('')
+        tree = Tree('../output/train3.gph')
+        pLearn = ParamLearn('../train2.csv')
+        
         self.assertEquals(submission.extractWordFeatures("hello world"), {"hello":1, "world":1})
         test1 = "A duck and a boy went to the super-duper-pond a fortnight ago."
         test1_ans = {"A":1, "duck":1, "and":1, "a":2, "boy":1, "went": 1, "to":1, "the":1,\

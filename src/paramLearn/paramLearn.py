@@ -35,6 +35,16 @@ class ParamLearn:
     self.domains["code780799"] = [0,1]
     self.domains["code800999"] = [0,1]
 
+  def getParentJointProb(self, node_id, node_val, params):
+       
+      #parentCount
+      parentCount = self.pTable.getCounts(params)
+      #posteriorCount
+      params[node_id] = node_val
+      postCount = self.pTable.getCounts(params)
+
+      return (postCount+1) / (parentCount+len(self.domains[node_id]))
+
   def getParentChildJointProb(self, node_id, node_val, parentDict, childDict):
     
     jointParams = dict(parentDict.items()+childDict.items())
@@ -43,17 +53,8 @@ class ParamLearn:
     # jointParams[node_id] = node_val
     # postCount = self.pTable.getCounts(jointParams)
     # return postCount*1.0 / (jointCount+0.0000000001)  
-    return getParentJointProb(node_id, node_val, jointParams)
+    return self.getParentJointProb(node_id, node_val, jointParams)
 
-  def getParentJointProb(self, node_id, node_val, params):
-     
-    #parentCount
-    parentCount = self.pTable.getCounts(params)
-    #posteriorCount
-    params[node_id] = node_val
-    postCount = self.pTable.getCounts(params)
-
-    return (postCount+1) / (parentCount+len(self.domains[node_id]))
 
 def main(argv):
   countFile = argv[1]
