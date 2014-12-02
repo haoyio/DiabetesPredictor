@@ -153,7 +153,7 @@ for row in range(nSamples):
                         1, parentValues, childrenValues))
                        #withheldData[row]["diabetes"], parentValues))
   
-  print "Sample number " + str(row) + " took " + str(time.time() - t) + " sec"
+  print "Sample number " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
 LABEL_TOL = 0.5
