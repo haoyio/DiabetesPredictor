@@ -1,0 +1,74 @@
+weight, BMI
+height, gender
+diabetes, endocrine/nutritional/metabolic/immunity
+sBP, dBP
+height, BMI
+age, circulatory
+diabetes, age
+gender, weight
+circulatory, sBP
+digestive, other
+respiratory, other
+state, mental disorders
+sense organs, respiratory
+diabetes, circulatory
+other, state
+musculoskeletal, digestive
+other, genitourinary
+musculoskeletal, injury/poisoning
+digestive, respiratory
+skin/subcutaneous tissue, infectious/parasitic
+other, blood
+mental disorders, nervous
+endocrine/nutritional/metabolic/immunity, blood
+musculoskeletal, nervous
+age, musculoskeletal
+BMI, diabetes
+respiratory, infectious/parasitic
+respiratory, skin/subcutaneous tissue
+musculoskeletal, other
+circulatory, state
+endocrine/nutritional/metabolic/immunity, digestive
+injury/poisoning, sense organs
+musculoskeletal, respiratory
+pregnancy/childbirth/puerperium, age
+gender, pregnancy/childbirth/puerperium
+blood, genitourinary
+other, skin/subcutaneous tissue
+age, neoplasms
+musculoskeletal, mental disorders
+injury/poisoning, skin/subcutaneous tissue
+circulatory, blood
+circulatory, digestive
+gender, musculoskeletal
+digestive, sense organs
+pregnancy/childbirth/puerperium, genitourinary
+pregnancy/childbirth/puerperium, state
+injury/poisoning, other
+digestive, genitourinary
+sense organs, infectious/parasitic
+musculoskeletal, sense organs
+digestive, blood
+musculoskeletal, skin/subcutaneous tissue
+endocrine/nutritional/metabolic/immunity, other
+skin/subcutaneous tissue, genitourinary
+musculoskeletal, congenital anomalies
+circulatory, mental disorders
+digestive, nervous
+pregnancy/childbirth/puerperium, mental disorders
+injury/poisoning, respiratory
+other, infectious/parasitic
+neoplasms, digestive
+perinatal, genitourinary
+digestive, injury/poisoning
+age, endocrine/nutritional/metabolic/immunity
+sense organs, skin/subcutaneous tissue
+congenital anomalies, mental disorders
+circulatory, endocrine/nutritional/metabolic/immunity
+pregnancy/childbirth/puerperium, infectious/parasitic
+perinatal, age
+perinatal, sense organs
+perinatal, musculoskeletal
+pregnancy/childbirth/puerperium, other
+perinatal, mental disorders
+perinatal, endocrine/nutritional/metabolic/immunity
