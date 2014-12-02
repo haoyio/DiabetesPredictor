@@ -147,5 +147,5 @@ for row in range(len(data)):
 nCorrect = sum([1. if labels[i] - probabilities[i] > 0.2 else 0 for i in range(len(labels))])
 pCorrect = nCorrect / len(labels)
 
-print "There were " + str(nCorrect) " labels out of " + str(len(data)) +  " samples"
+print "There were " + str(nCorrect) " labels out of " + str(len(data)) + " samples"
 print "Total cpu time was " + str(time.time() - tNet) + " sec"
