@@ -1,23 +1,26 @@
 import unittest
-import paramLearn
-import tree
+from paramLearn import *    
+from tree import *
 
 class TestSubmission(unittest.TestCase):
 
-    def test_one(self):
-        tree = Tree('../output/train3.gph')
-        pLearn = ParamLearn('../train2.csv')
-        
-        self.assertEquals(submission.extractWordFeatures("hello world"), {"hello":1, "world":1})
-        test1 = "A duck and a boy went to the super-duper-pond a fortnight ago."
-        test1_ans = {"A":1, "duck":1, "and":1, "a":2, "boy":1, "went": 1, "to":1, "the":1,\
-         "super-duper-pond":1, "fortnight":1, "ago.":1}
-        self.assertEquals(submission.extractWordFeatures(test1), test1_ans)
-        test2 = "I am what I am"
-        test2_ans = {"I":2, "am":2, "what":1}
-        self.assertEquals(submission.extractWordFeatures(test2), test2_ans)
+    def test_paramLearn_getChildren(self):
+        graph = Tree('testData.gph')
+        pLearn = ParamLearn('testData.csv')
+        pLearn.domains["sBP"] = [1,0]
+        pLearn.domains["code280289"] = [1,0]
+        node_id = 'sBP'
+        node_val = '1'
+        params = {'code280289': '0'}
+        self.assertEquals(pLearn.getParentJointProb(node_id, node_val, params), (1.0/2.0))
 
+    def test_nodeTree(self):
+        graph = Tree('testData.gph')
 
+        n = graph.getNode('sBP')
+        self.assertEquals(n.id, 'sBP')
+        self.assertEquals([p.id for p in n.getChildren()], ['weight', 'dBP'])
+        self.assertEquals([p.id for p in n.getParents()], ['code280289'])
 
 if __name__ == '__main__':
     unittest.main()
