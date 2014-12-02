@@ -132,8 +132,8 @@ for row in range(nSamples):
         jProbs.append(pLearn.getParentChildJointProb( \
                       name, nodeValue, parentValues, childrenValues))
       
-      # # assign value to unknown variable via weighted random sampling
-      # newWithheld[name] = weightedChoice(domains[name], jProbs)
+      # assign value to unknown variable via weighted random sampling
+      newWithheld[name] = weightedChoice(domains[name], jProbs)
       # withheldData[row][name] = newWithheld[name]
 
     # set unknown variables to newly sampled values; something weird with this
