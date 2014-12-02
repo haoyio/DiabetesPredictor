@@ -88,7 +88,7 @@ def weightedChoice(choices, weights):
 
 # Gibbs sampling
 iterNum = 1000
-nSamples = 1 # len(data)
+nSamples = 10 # len(data)
 
 print "Running Gibbs sampling for " + str(nSamples) + " samples"
 tNet = time.time()
