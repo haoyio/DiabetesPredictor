@@ -149,7 +149,7 @@ nCorrect = sum([1. if float(labels[i]) - probabilities[i] > 0.3 else 0 \
                 for i in range(nSamples)])
 pCorrect = nCorrect / nSamples
 
-compareDict = {labels[i] : probabilities[i] for i in range(nSamples)}
+compareDict = {str(i) : (labels[i], probabilities[i]) for i in range(nSamples)}
 
 print compareDict
 print "There were " + str(nCorrect) + " correct labels out of " + str(nSamples) + " samples"
