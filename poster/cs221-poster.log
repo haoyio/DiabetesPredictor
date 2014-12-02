@@ -1,9 +1,9 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.6)  1 DEC 2014 20:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.6)  1 DEC 2014 20:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
-**template_poster.tex -recorder
-(./template_poster.tex
+**cs221-poster.tex -recorder
+(./cs221-poster.tex
 LaTeX2e <2014/05/01>
 Babel <3.9l> and hyphenation patterns for 79 languages loaded.
 (/usr/local/texlive/2014/texmf-dist/tex/latex/a0poster/a0poster.cls
@@ -574,8 +574,8 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 )
 Grid set 23 x 12 = 109.506pt x 149.66148pt
 TextBlockOrigin set to 40mm x 40mm
-(./template_poster.aux)
-\openout1 = `template_poster.aux'.
+(./cs221-poster.aux)
+\openout1 = `cs221-poster.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
 LaTeX Font Info:    ... okay on input line 107.
@@ -712,19 +712,19 @@ Non-PDF special ignored!
 
 
 Non-PDF special ignored!
-Non-PDF special ignored!] (./template_poster.aux)
+Non-PDF special ignored!] (./cs221-poster.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
  15030 strings out of 493109
- 293195 string characters out of 6135004
- 369716 words of memory out of 5000000
+ 293168 string characters out of 6135004
+ 368716 words of memory out of 5000000
  18203 multiletter control sequences out of 15000+600000
  12741 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,12n,54p,432b,324s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 55i,12n,54p,429b,324s stack positions out of 5000i,500n,10000p,200000b,80000s
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
 ></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
 </usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
@@ -736,7 +736,7 @@ ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/
 local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb></usr/
 local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on template_poster.pdf (1 page, 110147 bytes).
+Output written on cs221-poster.pdf (1 page, 110257 bytes).
 PDF statistics:
  55 PDF objects out of 1000 (max. 8388607)
  40 compressed objects within 1 object stream

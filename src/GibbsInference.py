@@ -152,6 +152,8 @@ for row in range(nSamples):
   probabilities.append(pLearn.getParentChildJointProb("diabetes", \
                         1, parentValues, childrenValues))
                        #withheldData[row]["diabetes"], parentValues))
+  
+  print "Sample number " + str(row) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
 LABEL_TOL = 0.5
