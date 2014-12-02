@@ -92,8 +92,7 @@ iterNum = 1000
 print "Running Gibbs sampling for " + str(len(data)) + " samples"
 tNet = time.time()
 
-for row in range(10):
-# for row in range(len(data)):
+for row in range(len(data)):
   
   t = time.time()
 
