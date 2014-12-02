@@ -87,7 +87,7 @@ def weightedChoice(choices, weights):
       upto += w
 
 # Gibbs sampling
-iterNum = 5000
+iterNum = 1000
 nSamples = 10 # len(data)
 
 print "Running Gibbs sampling for " + str(nSamples) + " samples"
@@ -145,7 +145,8 @@ for row in range(nSamples):
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
-nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < 0.3 \
+LABEL_TOL = 0.2
+nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < LABEL_TOL \
                    else 0 for i in range(nSamples)])
 pCorrect = nCorrect / nSamples
 
