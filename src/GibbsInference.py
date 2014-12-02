@@ -114,14 +114,13 @@ for row in range(nSamples):
     for name in withheldData[row]:
       
       jProbs = []
-      
-      # get parent and child values in dictionary
-      parentValues = {parent.id : data[row][nameMap[parent.id]] \
-                      for parent in graph.getNode(name).getParents()}
-      childrenValues = {child.id : data[row][nameMap[child.id]] \
-                        for child in graph.getNode(name).getChildren()}
-        
       for nodeValue in domains[name]:
+        
+        # get parent and child values in dictionary
+        parentValues = {parent.id : data[row][nameMap[parent.id]] \
+                        for parent in graph.getNode(name).getParents()}
+        childrenValues = {child.id : data[row][nameMap[child.id]] \
+                          for child in graph.getNode(name).getChildren()}
         
         # populate unknown variable with weighted random values
         for name in withheldData[row]:
