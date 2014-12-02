@@ -7,7 +7,7 @@ def loadDictionary(filename):
   fo = open(filename)
   line = fo.readline().rstrip()
   while line:
-    line = line.split(", ")
+    line = [x.strip() for x in line.split(",")]
     d[line[0]] = line[1]
     line = fo.readline().rstrip()
 
@@ -27,24 +27,16 @@ def main(argv):
 
   line = infile.readline().rstrip()
   while line:
-    line = line.split(", ")
-    elem1 = line[0]
-    elem2 = line[1]
-    m1 = re.match('(?:code)([0-9]*)', elem1)
-    m2 = re.match('(?:code)([0-9]*)', elem2)
+    outline = []
+    line = [x.strip() for x in line.split(",")]
+    for elem in line:
+      m=re.match('(?:code)([0-9]*)', elem)
+      if m:
+        outline.append(d[m.group(1)])
+      else:
+        outline.append(elem)
 
-    if m1:
-      elem1 = m1.group(1)
-      print elem1
-      if elem1 in d:
-        elem1 = d[elem1]
-    if m2:
-      elem2 = m2.group(1)
-      print elem2
-      if elem2 in d:
-        elem2 = d[elem2]
-
-    outfile.write(elem1+", "+elem2+"\n")
+    outfile.write(",".join(outline)+"\n")
     line = infile.readline().rstrip()
 if __name__ == "__main__":
   main(sys.argv)
