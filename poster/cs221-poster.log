@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.6)  1 DEC 2014 22:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.6)  2 DEC 2014 03:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -572,36 +572,85 @@ Package: ifxetex 2010/09/12 v0.6 Provides ifxetex conditional
 \Gm@layoutvoffset=\dimen199
 \Gm@dimlist=\toks34
 )
+(/usr/local/texlive/2014/texmf-dist/tex/latex/tools/multicol.sty
+Package: multicol 2014/10/28 v1.8i multicolumn formatting (FMi)
+\c@tracingmulticols=\count136
+\mult@box=\box42
+\multicol@leftmargin=\dimen200
+\c@unbalance=\count137
+\c@collectmore=\count138
+\doublecol@number=\count139
+\multicoltolerance=\count140
+\multicolpretolerance=\count141
+\full@width=\dimen201
+\page@free=\dimen202
+\premulticols=\dimen203
+\postmulticols=\dimen204
+\multicolsep=\skip51
+\multicolbaselineskip=\skip52
+\partial@page=\box43
+\last@line=\box44
+\maxbalancingoverflow=\dimen205
+\mult@rightbox=\box45
+\mult@grightbox=\box46
+\mult@gfirstbox=\box47
+\mult@firstbox=\box48
+\@tempa=\box49
+\@tempa=\box50
+\@tempa=\box51
+\@tempa=\box52
+\@tempa=\box53
+\@tempa=\box54
+\@tempa=\box55
+\@tempa=\box56
+\@tempa=\box57
+\@tempa=\box58
+\@tempa=\box59
+\@tempa=\box60
+\@tempa=\box61
+\@tempa=\box62
+\@tempa=\box63
+\@tempa=\box64
+\@tempa=\box65
+\c@columnbadness=\count142
+\c@finalcolumnbadness=\count143
+\last@try=\dimen206
+\multicolovershoot=\dimen207
+\multicolundershoot=\dimen208
+\mult@nat@firstbox=\box66
+\colbreak@box=\box67
+\mc@col@check@num=\count144
+)
 Grid set 23 x 12 = 109.506pt x 149.66148pt
 TextBlockOrigin set to 40mm x 40mm
 (./cs221-poster.aux)
 \openout1 = `cs221-poster.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 107.
-LaTeX Font Info:    ... okay on input line 107.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 109.
+LaTeX Font Info:    ... okay on input line 109.
  ABD: EveryShipout initializing macros
 (/usr/local/texlive/2014/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count136
-\scratchdimen=\dimen200
-\scratchbox=\box42
-\nofMPsegments=\count137
-\nofMParguments=\count138
+\scratchcounter=\count145
+\scratchdimen=\dimen209
+\scratchbox=\box68
+\nofMPsegments=\count146
+\nofMParguments=\count147
 \everyMPshowfont=\toks35
-\MPscratchCnt=\count139
-\MPscratchDim=\dimen201
-\MPnumerator=\count140
-\makeMPintoPDFobject=\count141
+\MPscratchCnt=\count148
+\MPscratchDim=\dimen210
+\MPnumerator=\count149
+\makeMPintoPDFobject=\count150
 \everyMPtoPDFconversion=\toks36
 ) (/usr/local/texlive/2014/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
@@ -673,7 +722,7 @@ Package caption Info: End \AtBeginDocument code.
 * \footskip=30.0pt
 * \marginparwidth=65.0pt
 * \marginparsep=11.0pt
-* \columnsep=10.0pt
+* \columnsep=28.45274pt
 * \skip\footins=9.0pt plus 4.0pt minus 2.0pt
 * \hoffset=0.0pt
 * \voffset=0.0pt
@@ -686,24 +735,30 @@ Package caption Info: End \AtBeginDocument code.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <35.83> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 141.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 143.
 
 
-LaTeX Font Info:    Try loading font information for OMS+cmss on input line 167
+LaTeX Font Info:    Try loading font information for OMS+cmss on input line 169
 .
-LaTeX Font Info:    No file OMScmss.fd. on input line 167.
+LaTeX Font Info:    No file OMScmss.fd. on input line 169.
 
 LaTeX Font Warning: Font shape `OMS/cmss/m/n' undefined
 (Font)              using `OMS/cmsy/m/n' instead
-(Font)              for symbol `textbullet' on input line 167.
+(Font)              for symbol `textbullet' on input line 169.
+
+<intro-fig.pdf, id=4, 625.33624pt x 141.52875pt>
+File: intro-fig.pdf Graphic file (type pdf)
+ <use intro-fig.pdf>
+Package pdftex.def Info: intro-fig.pdf used on input line 175.
+(pdftex.def)             Requested size: 650.43pt x 147.21233pt.
 
 
 LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <24.88> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 193.
+(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 210.
 
 
 
-Overfull \hbox (5.2098pt too wide) in paragraph at lines 288--289
+Overfull \hbox (5.2098pt too wide) in paragraph at lines 303--304
 []\OT1/cmss/m/n/43 An Al-ter-nat-ing Con-vex Op-ti-miza-tion Ap-proach[] 
  []
 
@@ -712,16 +767,16 @@ Non-PDF special ignored!
 
 
 Non-PDF special ignored!
-Non-PDF special ignored!] (./cs221-poster.aux)
+Non-PDF special ignored! <./intro-fig.pdf>] (./cs221-poster.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
  ) 
 Here is how much of TeX's memory you used:
- 15030 strings out of 493109
- 293168 string characters out of 6135004
- 370716 words of memory out of 5000000
- 18203 multiletter control sequences out of 15000+600000
+ 15151 strings out of 493109
+ 294995 string characters out of 6135004
+ 375996 words of memory out of 5000000
+ 18320 multiletter control sequences out of 15000+600000
  12741 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  55i,12n,54p,429b,324s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -736,10 +791,10 @@ ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/
 local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb></usr/
 local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
 ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on cs221-poster.pdf (1 page, 110446 bytes).
+Output written on cs221-poster.pdf (1 page, 151229 bytes).
 PDF statistics:
- 55 PDF objects out of 1000 (max. 8388607)
- 40 compressed objects within 1 object stream
+ 90 PDF objects out of 1000 (max. 8388607)
+ 62 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 13 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 18 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -86,6 +86,8 @@
 \def\Subhead#1{\noindent{\large\color{bluegray} #1}\bigskip}
 \def\Title#1{\noindent{\VeryHuge\color{Red} #1}}
 
+\usepackage{multicol}
+\setlength{\columnsep}{1cm}
 
 % Set up the grid
 %
@@ -151,10 +153,10 @@ Xiao Song Mu
 %%\includegraphics{/usr/local/share/images/AandA.epsf}
 %\end{textblock}
 
-%\begin{textblock}{2}(21.2,0)
-%Another logo here
-%%\resizebox{2\TPHorizModule}{!}{\includegraphics{/usr/local/share/images/GUVIu/GUVIu.eps}}
-%\end{textblock}
+% \begin{textblock}{3}(21.0,0)
+% % Another logo here
+% \resizebox{1.95\TPHorizModule}{!}{\includegraphics{uni-logo.png}}
+% \end{textblock}
 
 
 \begin{textblock}{7.0}(0,1.5)
@@ -165,47 +167,60 @@ Xiao Song Mu
 \begin{itemize}
   
   \item Given a set of electronic health records, we want to have a smart predictor that prompts high-risk patients to obtain Type II Diabetes testing
-  
-  \item Traditional Kaggle Practice Fusion Diabetes Classification Challenge:
-  \begin{itemize}
-    \item Patients all have a standard database and a full medical record
-    \item I.e., exact same tests taken, same variables recorded, etc.
-  \end{itemize}
 
-  \item In practice, however, records may be incomplete or wrong:
+\end{itemize}
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=9in]{intro-fig.pdf}
+  \label{fig1}
+\end{figure}
+
+\begin{multicols}{2}
+  
   \begin{itemize}
-    \item Not everyone has taken the same tests and gotten regular checkups
-    \item Database inconsistencies or errors in inputting data may exist
+    \item Original Kaggle challenge:
+    \begin{itemize}
+      \item Patients all have a standard database and a full medical record
+      \item I.e., exact same tests taken, same variables recorded, etc.
+    \end{itemize}
+
+    \item In practice, however:
+    \begin{itemize}
+      \item Not everyone has taken the same tests and gotten regular checkups
+      \item Database inconsistencies or errors in inputting data may exist
+    \end{itemize}
   \end{itemize}
+\end{multicols}
+
+\begin{itemize}
 
   \item Predictor must be able to accurately classify based on incomplete or erroneous medical records to be useful
 
 \end{itemize}
 
-
 \medskip
 \hrule\medskip
 \Head{Diabetes Prediction}
 
-Given
-\begin{itemize}
-  
-  \item \emph{Training set} containing standardized, de-identified patient medical records
-
-  \item \emph{Testing set} containing de-identified patient medical records with missing information and unknown erroneously recorded data
-
-\end{itemize}
-
-Learn
 \begin{itemize}
 
-  \item \emph{Bayesian network structure} encoding the conditional dependencies between medical record variables
+  \item Given
+  \begin{itemize}
+    \item \emph{Training set} containing standardized patient medical records
+    \item \emph{Testing set} containing patient medical records with missing information and unknown erroneously recorded data
+  \end{itemize}
 
-  \item \emph{Bayesian network parameters} encoding the conditional probabilities for each variable
+  \item Output
+  \begin{itemize}
+    \item \emph{Bayesian network structure} encoding the conditional dependencies between medical record variables
+    \item \emph{Bayesian network parameters} encoding the conditional probabilities for each variable
+    \item \emph{Probabilistic inference} on the learned Bayesian network for classification
+  \end{itemize}
+
+  \item To minimize the error rate, including false positives and false negatives, on classifying whether a patient has Type II Diabetes
 
 \end{itemize}
-
-To minimize the error rate, including false positives and false negatives, on classifying whether a patient has Type II Diabetes
 
 \medskip
 \hrule\medskip
