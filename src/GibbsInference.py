@@ -77,16 +77,16 @@ for row in data:
 
 
 def weightedChoice(objects, weights):
- """
+  """
   Weighted random selection
   returns n_picks random indexes.
   the chance to pick the index i 
   is give by the weight weights[i].
- """
- n_picks = 1
- t = cumsum(weights)
- s = sum(weights)
- return objects[searchsorted(t,rand(n_picks)*s)]
+  """
+  n_picks = 1
+  t = cumsum(weights)
+  s = sum(weights)
+  return objects[searchsorted(t,rand(n_picks)*s)]
 
 
 # Gibbs sampling
@@ -148,7 +148,7 @@ for row in range(nSamples):
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
-LABEL_TOL = 0.2
+LABEL_TOL = 0.3
 nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < LABEL_TOL \
                    else 0 for i in range(nSamples)])
 pCorrect = nCorrect / nSamples
