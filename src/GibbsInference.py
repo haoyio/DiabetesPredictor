@@ -90,8 +90,8 @@ def weightedChoice(objects, weights):
 
 
 # Gibbs sampling
-iterNum = 1000
-nSamples = 10 # len(data)
+iterNum = 20
+nSamples = len(data)
 
 print "Running Gibbs sampling for " + str(nSamples) + " samples"
 tNet = time.time()
@@ -106,7 +106,6 @@ for row in range(nSamples):
   
   # TODO: we need to have some convergence criteria; too slow!
   for iterIdx in range(iterNum):
-    withheld = withheldData[row]
     newWithheld = {}
     
     # loop through labels in withheldData[row] and random sample 
@@ -133,9 +132,9 @@ for row in range(nSamples):
         jProbs.append(pLearn.getParentChildJointProb( \
                       name, nodeValue, parentValues, childrenValues))
       
-      # assign value to unknown variable via weighted random sampling
-      newWithheld[name] = weightedChoice(domains[name], jProbs)
-      withheldData[row][name] = newWithheld[name]
+      # # assign value to unknown variable via weighted random sampling
+      # newWithheld[name] = weightedChoice(domains[name], jProbs)
+      # withheldData[row][name] = newWithheld[name]
 
     # set unknown variables to newly sampled values; something weird with this
     withheldData[row] = newWithheld
