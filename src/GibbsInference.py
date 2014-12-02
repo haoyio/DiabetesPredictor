@@ -86,6 +86,8 @@ def weightedChoice(choices, weights):
         return c
       upto += w
 
+print str(weightedChoice([1, 2, 3, 4], [1, 2, 3, 4]))
+
 # Gibbs sampling
 iterNum = 1000
 nSamples = 10 # len(data)
