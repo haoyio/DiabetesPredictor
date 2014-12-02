@@ -137,7 +137,7 @@ for row in range(nSamples):
       newWithheld[name] = weightedChoice(domains[name], jProbs)
       withheldData[row][name] = newWithheld[name]
 
-    # set unknown variables to newly sampled values
+    # set unknown variables to newly sampled values; something weird with this
     withheldData[row] = newWithheld
   
   # record inferred value for current row
@@ -149,7 +149,7 @@ for row in range(nSamples):
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
-LABEL_TOL = 0.3
+LABEL_TOL = 0.2
 nCorrect = sum([1. if abs(float(labels[i]) - probabilities[i]) < LABEL_TOL \
                    else 0 for i in range(nSamples)])
 pCorrect = nCorrect / nSamples
