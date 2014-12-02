@@ -88,11 +88,12 @@ def weightedChoice(choices, weights):
 
 # Gibbs sampling
 iterNum = 1000
+nSamples = 1 # len(data)
 
-print "Running Gibbs sampling for " + str(len(data)) + " samples"
+print "Running Gibbs sampling for " + str(nSamples) + " samples"
 tNet = time.time()
 
-for row in range(len(data)):
+for row in range(nSamples):
   
   t = time.time()
 
@@ -144,8 +145,9 @@ for row in range(len(data)):
   print "Data point " + str(row + 1) + " took " + str(time.time() - t) + " sec"
 
 # sort through probabilities and labels arrays and compare results
-nCorrect = sum([1. if labels[i] - probabilities[i] > 0.2 else 0 for i in range(len(labels))])
-pCorrect = nCorrect / len(labels)
+nCorrect = sum([1. if float(labels[i]) - probabilities[i] > 0.2 else 0 for i in range(nSamples)])
+pCorrect = nCorrect / nSamples
 
-print "There were " + str(nCorrect) + " labels out of " + str(len(data)) + " samples"
+print "There were " + str(nCorrect) + " correct labels out of " + str(nSamples) + " samples"
+print "The error rate was " + str(1 - pCorrect)
 print "Total cpu time was " + str(time.time() - tNet) + " sec"
