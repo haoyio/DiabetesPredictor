@@ -138,7 +138,7 @@ Xiao Song Mu
 {
 \Large
 \color{bluegray}
-\emph{CS 221: Introduction to Aritificial Intelligence Class Project}
+\emph{CS 221 Aritificial Intelligence: Principles and Techniques Class Project}
 }
 \end{textblock}
 
@@ -161,87 +161,124 @@ Xiao Song Mu
 
 \hrule\medskip
 \Head{Introduction}
+
 \begin{itemize}
   
-  \item Given a set of electronic health records, we want to have a smart predictor that prompts high-risk patients to obtain diabetes testing
+  \item Given a set of electronic health records, we want to have a smart predictor that prompts high-risk patients to obtain Type II Diabetes testing
   
-  \item Traditional Kaggle Kaggle Practice Fusion Diabetes Classification Challenge:
+  \item Traditional Kaggle Practice Fusion Diabetes Classification Challenge:
   \begin{itemize}
-    \item Full medical record of patients and that patients all have a standard database
-    \item I.e., exact same tests taken, same recorded variables
+    \item Patients all have a standard database and a full medical record
+    \item I.e., exact same tests taken, same variables recorded, etc.
   \end{itemize}
 
-  \item Practically
+  \item In practice, however, records may be incomplete or wrong:
+  \begin{itemize}
+    \item Not everyone has taken the same tests and gotten regular checkups
+    \item Database inconsistencies or errors in inputting data may exist
+  \end{itemize}
+
+  \item Predictor must be able to accurately classify based on incomplete or erroneous medical records to be useful
 
 \end{itemize}
 
 
 \medskip
 \hrule\medskip
-\Head{Truss Topology Optimization}\\
-Produce
-\begin{itemize}
-\item \emph{Set of sized bars} \(\mathcal{B}\) that constitute a truss
+\Head{Diabetes Prediction}
 
-\item \emph{Set of attachment points or nodes} \(\mathcal{X}\) for the bars
-\end{itemize}
 Given
 \begin{itemize}
-\item \emph{Set of fixed nodes} \(\mathcal{X}^{\text{fixed}} \subset \mathcal{X} \) representing the truss foundation
-
-\item \emph{Set of loading forces} \(\mathcal{F}\) that the truss is to be designed to support
-
-\item \emph{Physical space} \( \mathcal{D}\) that limits where \(\mathcal{X}\) can be placed
-
-\item \emph{Maximum allowable weight of truss} \( W^{\text{max}} \)
   
-\item \emph{Structural symmetry constraints}  
+  \item \emph{Training set} containing standardized, de-identified patient medical records
+
+  \item \emph{Testing set} containing de-identified patient medical records with missing information and unknown erroneously recorded data
+
 \end{itemize}
-To maximize the truss stiffness, which is related to the elastic stored energy \( \Theta(\mathcal{F}, \mathcal{U}) \), where \( \mathcal{U} \) is the set of node deflections under load forces
+
+Learn
+\begin{itemize}
+
+  \item \emph{Bayesian network structure} encoding the conditional dependencies between medical record variables
+
+  \item \emph{Bayesian network parameters} encoding the conditional probabilities for each variable
+
+\end{itemize}
+
+To minimize the error rate, including false positives and false negatives, on classifying whether a patient has Type II Diabetes
 
 \medskip
 \hrule\medskip
-\Head{Problem Formulation}\\
-The design variables for our truss optimization are:
-\begin{itemize}
-\item \emph{Cross sectional areas} \(a \in \mathbf{R}^{m} \), where \(a_{i}\in \mathbf{R}\) is the area of the \(i^{th}\) bar
+\Head{Evaluation Criteria}
 
-\item \emph{Coordinates \(x \in \mathbf{R}^{2n} \)}, where \(x_{j}\in\mathbf{R}^{2}\) are the coordinates of the \(j^{th}\) node
+\begin{itemize}
+  
+  \item \emph{Baseline} of logistic regression
+  \begin{itemize}
+    \item Feature vector with basic data including height, weight, body mass index...
+    \item Cross validation with 10\%-hold-out on the training data
+    \item Obtained a false positive rate of 0.7\% and false negative rate of 15.3\% for a total error rate of 16\% (84\% accuracy)
+  \end{itemize}
+
+  \item \emph{Oracle}
+  \begin{itemize}
+    \item Ideal oracle would be experienced physicians who have correctly advised patients to test for diabetes given their medical history
+    \item Infeasible time-wise and financially for the scope of our project
+    \item Use as surrogate measures the test accuracies of established diabetes tests vetted by the US Department of Health and Human Services
+    \item Specifically, HBA1c, FPG, and OGTT, which have 85--95\% accuracy
+  \end{itemize}
+
 \end{itemize}
 
-Our problem data are:
-\begin{itemize}
-\item \emph{Loading forces} \(F\in\mathbf{R}^{2n}\), where \(F_{j}\in\mathbf{R}^{2}\) is the load on the \(j^{th}\) node
-
-\item \emph{Material densities \(\rho_{1},\ldots,\rho_{m} \in \mathbf{R} \)} of bars
-
-\item \emph{Young's moduli \(E_{1},\ldots,E_{m} \in \mathbf{R} \)} characterizing the elasticities of the bars
-
-\item \emph{Bar lengths \(L_{1},\ldots,L_{m} \in \mathbf{R} \)}, which are dependent on node coordinates \(x\)
-\end{itemize}
 \end{textblock}
 
 \begin{textblock}{7.0}(8,1.5)
 
 \hrule\medskip
-(Cont'd)
-\begin{itemize}
-\item \emph{Force mapping matrix \(P(\mathcal{X})\in\mathbf{R}^{m\times2n}\)}, which relates loads \(F\) to the internal stresses experienced by the bars, \(f\in\mathbf{R}^m \); implicit in \(P\) is an adjacency matrix relating each bar to its attachment points
+\Head{Problem Formulation}
 
-\item \emph{Stiffness matrix \(K(\mathcal{X}, a, L)\)}, which determines the amount of flex in the truss
-\[K = \sum\limits_{i=1}^{m}\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}p_{i}^{T},\]
-where \( p_{1},\ldots,p_{m} \) are the columns of the force mapping matrix \(P\)
+The design variables for our truss optimization are:
+\begin{itemize}
+  
+  \item \emph{Cross sectional areas} \(a \in \mathbf{R}^{m} \), where \(a_{i}\in \mathbf{R}\) is the area of the \(i^{th}\) bar
+
+  \item \emph{Coordinates \(x \in \mathbf{R}^{2n} \)}, where \(x_{j}\in\mathbf{R}^{2}\) are the coordinates of the \(j^{th}\) node
+
+\end{itemize}
+
+Our problem data are:
+\begin{itemize}
+  
+  \item \emph{Loading forces} \(F\in\mathbf{R}^{2n}\), where \(F_{j}\in\mathbf{R}^{2}\) is the load on the \(j^{th}\) node
+
+  \item \emph{Material densities \(\rho_{1},\ldots,\rho_{m} \in \mathbf{R} \)} of bars
+
+  \item \emph{Young's moduli \(E_{1},\ldots,E_{m} \in \mathbf{R} \)} characterizing the elasticities of the bars
+
+  \item \emph{Bar lengths \(L_{1},\ldots,L_{m} \in \mathbf{R} \)}, which are dependent on node coordinates \(x\)
+
+\end{itemize}
+
+\begin{itemize}
+  
+  \item \emph{Force mapping matrix \(P(\mathcal{X})\in\mathbf{R}^{m\times2n}\)}, which relates loads \(F\) to the internal stresses experienced by the bars, \(f\in\mathbf{R}^m \); implicit in \(P\) is an adjacency matrix relating each bar to its attachment points
+
+  \item \emph{Stiffness matrix \(K(\mathcal{X}, a, L)\)}, which determines the amount of flex in the truss
+  \[K = \sum\limits_{i=1}^{m}\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}p_{i}^{T},\]
+  where \( p_{1},\ldots,p_{m} \) are the columns of the force mapping matrix \(P\)
+
 \end{itemize}
 
 Our truss design optimization is further characterized by the following variables, whose relations contain all of the physics of the problem:
 \begin{itemize}
 
-\item \emph{Node deflections} \(u\in\mathbf{R}^{2n}\) due to the truss flexing under loads \(F\), where \(u_{j}\in\mathbf{R}^{2}\) is the deflection of the \(j^{th}\) node; by Hooke's Law, we have the force balance \(F = Ku\)
+  \item \emph{Node deflections} \(u\in\mathbf{R}^{2n}\) due to the truss flexing under loads \(F\), where \(u_{j}\in\mathbf{R}^{2}\) is the deflection of the \(j^{th}\) node; by Hooke's Law, we have the force balance \(F = Ku\)
 
-\item \emph{Internal stress \(f_{i}\in\mathbf{R}\)} experienced by each bar due to the node deflections
-\[f_{i} = -\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}^{T}u,\ \ \ i=1,\ldots,m\]
+  \item \emph{Internal stress \(f_{i}\in\mathbf{R}\)} experienced by each bar due to the node deflections
+  \[f_{i} = -\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}^{T}u,\ \ \ i=1,\ldots,m\]
 
-\item \emph{Stored elastic energy} \(\Theta = \frac{1}{2}F^{T}u\), which we minimize in order to maximize the truss stiffness
+  \item \emph{Stored elastic energy} \(\Theta = \frac{1}{2}F^{T}u\), which we minimize in order to maximize the truss stiffness
+
 \end{itemize}
 
 
@@ -249,72 +286,76 @@ Our truss design optimization is further characterized by the following variable
 
 \hrule\medskip
 \Head{An Alternating Convex Optimization Approach}
+
 The minimization of \(\Theta\) in \( \left(a,x\right) \) that follows from our formulation above is non-convex. As a heuristic to solve the optimization problem, we first optimize over the bar sizes \(a\), and then over the node coordinates \(x\):
 
-  \begin{itemize}
-  \item We perform a linear change of coordinates to cast the bar sizing problem as a second-order cone program (SOCP) in \(w, v\in\mathbf{R}^{m}\):
-    \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
-    \[w_{i} - v_{i} = a_{i}\]
-    The value of \(w_{i} + v_{i}\) is therefore the spring energy stored in the \(i^{th}\) bar
-  
-  \item Holding \(x\) constant, find the bar cross sectional areas \(a\) that minimize \(\Theta\):
-  {\small
+\begin{itemize}
+\item We perform a linear change of coordinates to cast the bar sizing problem as a second-order cone program (SOCP) in \(w, v\in\mathbf{R}^{m}\):
+  \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
+  \[w_{i} - v_{i} = a_{i}\]
+  The value of \(w_{i} + v_{i}\) is therefore the spring energy stored in the \(i^{th}\) bar
+
+\item Holding \(x\) constant, find the bar cross sectional areas \(a\) that minimize \(\Theta\):
+{\small
   \begin{equation}
-  \begin{array}{ll}
-  \mbox{minimize}   & \Theta = 1^{T}\left(w+v\right)\\
-  \mbox{subject to} & Pf + F = 0\\
-            & M\left(w-v\right) \leq d\\
-            & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m \\
-                & 1^{T}\left( w - v \right) \leq W^{max}
-  \end{array}
-  \label{cvxopt1}
+    \begin{array}{ll}
+      \mbox{minimize}   & \Theta = 1^{T}\left(w+v\right)\\
+      \mbox{subject to} & Pf + F = 0\\
+                & M\left(w-v\right) \leq d\\
+                & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m \\
+                    & 1^{T}\left( w - v \right) \leq W^{max}
+    \end{array}
+    \label{cvxopt1}
   \end{equation}
-  }
-  \item We then perform an affine change of coordinates to cast the node positioning problem as an SOCP in \(w, v\in\mathbf{R}^{m}\) (different from above):
-    \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
-    \[w_{i} - v_{i} = \frac{2p_{i}^{T}y_{i}}{L_{i}} + 1\]
-  \end{itemize}
+}
+\item We then perform an affine change of coordinates to cast the node positioning problem as an SOCP in \(w, v\in\mathbf{R}^{m}\) (different from above):
+  \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
+  \[w_{i} - v_{i} = \frac{2p_{i}^{T}y_{i}}{L_{i}} + 1\]
+\end{itemize}
   
-  \end{textblock}
+\end{textblock}
   
-  \begin{textblock}{7.0}(16,1.5)
-  
-  \hrule
-  \medskip
-  (Cont'd)
-  
-  \begin{itemize}
+\begin{textblock}{7.0}(16,1.5)
+
+\hrule
+\medskip
+(Cont'd)
+
+\begin{itemize}
+
   \item Holding \(a\) constant, find a set of displacements \(y\in\mathbf{R}^{2n}\) that ``shift'' the node coordinates \(x\) from their original positions and minimize \(\Theta\):
   {\small
   \begin{equation}
     \begin{array}{ll}
-    \mbox{minimize}   & \Theta = 1^{T}\left(w+v \right)\\
-    \mbox{subject to} & Pf+F = 0\\
-              & \frac{1}{2}\left( \left( w_{i} - v_{i} \right) - 1 \right) = \frac{p_{i}^{T}y_{i}}{L_{i}},\ \ \ i = 1,\ldots,m\\
-              & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}a_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m\\
-              & \|y_{i}\|_{2} \leq \epsilon_{i},\ \ \ i = 1,\ldots,m\\
-                  & g\left(y\right) = 0,
+      \mbox{minimize}   & \Theta = 1^{T}\left(w+v \right)\\
+      \mbox{subject to} & Pf+F = 0\\
+                        & \frac{1}{2}\left( \left( w_{i} - v_{i} \right) - 1 \right) = \frac{p_{i}^{T}y_{i}}{L_{i}},\ \ \ i = 1,\ldots,m\\
+                        & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}a_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m\\
+                        & \|y_{i}\|_{2} \leq \epsilon_{i},\ \ \ i = 1,\ldots,m\\
+                            & g\left(y\right) = 0,
     \end{array}
     \label{cvxopt2}
   \end{equation}
   }
   where \(g(y) = 0 \) enforces truss symmetry, and \(\|y_{i}\|_{2} \leq\epsilon_{i}\) restrict node shifts.
-  \end{itemize}
+
+\end{itemize}
   
 In our heuristic, we first discretize the physical space as in traditional approaches to obtain \(\hat{\mathcal{D}}\), and alternate between solving \eqref{cvxopt1} and \eqref{cvxopt2} in each iteration:
 \begin{addmargin}[2em]{0em}% 1em left, 2em right
-\begin{leftbar}
-{\small
-\begin{tabbing}
-    {\bf given} \(\mathcal{X}^{\text{fixed}}\), \(\mathcal{F} \), $ \mathcal{\hat{D}} $ \\*[\smallskipamount]
-    Generate set of node coordinates \(x^{0}\) from $\mathcal{\hat{D}} $, set \(x:=x^{0}\) \\*[\smallskipamount]
-    {\bf repeat} \\
-    \qquad \= 1.\ Given \(x\), obtain \(a\) and \(\Theta_{1} \) as the solution to and objective of \eqref{cvxopt1}\\
-    \> 2.\ Given \(a\), obtain \(y\) and \(\Theta_{2}\) as the solution to and objective of \eqref{cvxopt2}, set \(x := x + y\) \\
-    \> 3. {\bf break if} \(\Theta_{1}\) and \(\Theta_{2}\) converge \\*[\smallskipamount]
-    {\bf return} \(a\), \(x\)
-\end{tabbing}}
-\end{leftbar}
+  \begin{leftbar}
+  {\small
+    \begin{tabbing}
+      {\bf given} \(\mathcal{X}^{\text{fixed}}\), \(\mathcal{F} \), $ \mathcal{\hat{D}} $ \\*[\smallskipamount]
+      Generate set of node coordinates \(x^{0}\) from $\mathcal{\hat{D}} $, set \(x:=x^{0}\) \\*[\smallskipamount]
+      {\bf repeat} \\
+      \qquad \= 1.\ Given \(x\), obtain \(a\) and \(\Theta_{1} \) as the solution to and objective of \eqref{cvxopt1}\\
+      \> 2.\ Given \(a\), obtain \(y\) and \(\Theta_{2}\) as the solution to and objective of \eqref{cvxopt2}, set \(x := x + y\) \\
+      \> 3. {\bf break if} \(\Theta_{1}\) and \(\Theta_{2}\) converge \\*[\smallskipamount]
+      {\bf return} \(a\), \(x\)
+    \end{tabbing}
+  }
+  \end{leftbar}
 \end{addmargin}
 \medskip
 

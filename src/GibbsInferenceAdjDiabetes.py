@@ -64,14 +64,15 @@ with open('test2.csv', 'rb') as csvfile:
     data.append(row)
 del names[nameMap["diabetes"]]
 
-# randomly delete 10 features from each row
-numDelete = 10
-# random.seed(10)
-for row in data:
+# delete features adjacent to diabetes from each row
+childrenNodes = graph.getNode("diabetes").getChildren()
+parentNodes = graph.getNode("diabetes").getParents()
+for row in data:  
   withheld = {}
-  random.shuffle(names)
-  for i in range(numDelete):
-    withheld[names[i]] = 0
+  for child in childrenNodes:
+    withheld[child.id] = 0
+  for parent in parentNodes:
+    withheld[parent.id] = 0
   withheld["diabetes"] = 0
   withheldData.append(withheld)
 
