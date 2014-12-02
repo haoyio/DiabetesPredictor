@@ -134,8 +134,12 @@ for row in range(nSamples):
                       name, nodeValue, parentValues, childrenValues))
       
       # assign value to unknown variable via weighted random sampling
-      withheldData[row][name] = weightedChoice(domains[name], jProbs)
+      newWithheld[name] = weightedChoice(domains[name], jProbs)
+      withheldData[row][name] = newWithheld[name]
 
+    # set unknown variables to newly sampled values
+    withheldData[row] = newWithheld
+  
   # record inferred value for current row
   parentValues = {parent.id : data[row][nameMap[parent.id]] \
                         for parent in graph.getNode("diabetes").getParents()}
