@@ -226,73 +226,98 @@ Xiao Song Mu
 \hrule\medskip
 \Head{Evaluation Criteria}
 
-\begin{itemize}
-  
-  \item \emph{Baseline} of logistic regression
-  \begin{itemize}
-    \item Feature vector with basic data including height, weight, body mass index...
-    \item Cross validation with 10\%-hold-out on the training data
-    \item Obtained a false positive rate of 0.7\% and false negative rate of 15.3\% for a total error rate of 16\% (84\% accuracy)
-  \end{itemize}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{eval-fig.pdf}
+  \label{fig2}
+\end{figure}
 
-  \item \emph{Oracle}
+\begin{multicols}{2}
   \begin{itemize}
-    \item Ideal oracle would be experienced physicians who have correctly advised patients to test for diabetes given their medical history (impractical)
-    \item Use as surrogate measures the test accuracies of established diabetes tests vetted by the US Department of Health and Human Services
-    \item Specifically, HBA1c, FPG, and OGTT, which have 85--95\% accuracy
-  \end{itemize}
+    
+    \item \emph{Baseline} of logistic regression
+    \begin{itemize}
+      \item Basic features: age, BMI, ...
+      \item 10\% hold-out cross validation
+      \item False positive rate of 0.7\%, false negative rate of 15.3\%, and an error rate of 16\% (84\% accuracy)
+    \end{itemize}
 
-\end{itemize}
+    \item \emph{Oracle}
+    \begin{itemize}
+      \item Ideal oracle: experienced physicians (impractical)
+      \item Use as surrogate diabetes tests vetted by HHS (HBA1c, FPG, and OGTT; 85--95\% accuracy)
+    \end{itemize}
+
+  \end{itemize}
+\end{multicols}
 
 \end{textblock}
 
 \begin{textblock}{7.0}(8,1.5)
 
 \hrule\medskip
-\Head{Structure Learning}
-
-\subsection{Structure learning as a search problem}
+\Head{Structure Learning as a Search Problem}\vspace{-1em}
 
 \begin{itemize}
   
-  \item \textbf{Feature selection} We manually selected 27 discretized features according to ICD9 disease groupings to limit the search space.
+  \item \textbf{NP-hard search problem} Finding the best set of edges is hard as the number of BNs (DAGs) grows superexponentially with the number of nodes
 
-  \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009).
+  \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009)
 
-  \item \textbf{NP-hard} The number of directed acyclic graphs grows superexponentially with the number of nodes.
+  \item \textbf{Feature selection} We manually selected 27 discretized features (nodes) according to ICD9 disease groupings to limit the search space
 
-  \item \textbf{Tabu search} To find the optimal structure, we use a hill-climbing algorithm that maximizes the ``fitness'' of the BN based on the Bayesian score.
+  \item \textbf{Tabu search} To find the optimal structure, we use a hill-climbing algorithm that maximizes the ``fitness'' of the BN based on the Bayesian score
 
-  By maintaining a tabu list of recent operators we applied (e.g., adding an edge to the existing BN) and not considering operators that reverse the effect of recently applied operators, the heuristic avoids getting stuck at local optima.
+  By maintaining a tabu list of recent operators we applied (e.g., adding an edge to the existing BN) and not considering operators that reverse the effect of recently applied operators, the heuristic avoids getting stuck at local optima
 
   \medskip \hrule
-  \begin{addmargin}[5em]{2em}% 5em left, 2em right
+  \begin{addmargin}[0em]{2em}% 5em left, 2em right
     \begin{leftbar}
       \begin{tabbing}
-        {\bf given} \(\mathcal{X}^{\text{fixed}}\), \(\mathcal{F} \), $ \mathcal{\hat{D}} $ \\*[\smallskipamount]
-        Generate set of node coordinates \(x^{0}\) from $\mathcal{\hat{D}} $, set \(x:=x^{0}\) \\*[\smallskipamount]
+        {\bf given} training set \(\mathcal{D}\), structure prior \(P(\mathcal{G})\), node set \(\mathcal{N}\), tabu list size \(L\) \\*[\smallskipamount]
+        {\bf initialize} random BN \(\mathcal{G}\), tabu list \(\mathcal{T}\), valid operations \(\mathcal{O}\) \\*[\smallskipamount]
         {\bf repeat} \\
-        \qquad \= 1.\ Given \(x\), obtain \(a\) and \(\Theta_{1} \) as the solution to and objective of \eqref{cvxopt1}\\
-        \> 2.\ Given \(a\), obtain \(y\) and \(\Theta_{2}\) as the solution to and objective of \eqref{cvxopt2}, set \(x := x + y\) \\
-        \> 3. {\bf break if} \(\Theta_{1}\) and \(\Theta_{2}\) converge \\*[\smallskipamount]
-        {\bf return} \(a\), \(x\)
+        \qquad \= 1.\ if \(\left|\mathcal{O}\right|\) too large, generate random subset of valid operations \(\hat{\mathcal{O}}\subset\mathcal{O}\) \\
+        \> 2.\ find best operation: \(\text{Op} := \argmax_{\text{Op}\in\hat{\mathcal{O}}\backslash \mathcal{T}}\text{BayesScore}(\text{Op}(\mathcal{G}))\) \\
+        \> 3.\ set \(\mathcal{G}:=\text{Op}(\mathcal{G})\) and \(\mathcal{T}:=\mathcal{T}\cup\left\{\text{reverse}(\text{Op})\right\}\) \\
+        \> 4.\ remove operation added \(L\) iterations ago to \(\mathcal{T}\) from it \\
+        {\bf until} \(\text{BayesScore}(\mathcal{G})\) converges \\*[\smallskipamount]
+        {\bf return} \(\mathcal{G}\)
       \end{tabbing}
     \end{leftbar}
   \end{addmargin}
-  \medskip
+  \hrule
 
 \end{itemize}
 
-\section{}
+\end{textblock}
 
+\begin{textblock}{7.0}(8,6.8)
 
+\begin{itemize}
 
-\medskip
+  \item \textbf{Resulting structure} Below is the best structure out of 20 trials with a uniform Dirichlet prior over network structures
+  \begin{figure}[!h]
+    \centering
+    \hbox{
+      \hspace{-4em}
+      \includegraphics[width=1.2\textwidth]{bn-struct.pdf}
+    }
+    \label{fig3}
+  \end{figure}
+
+\end{itemize}
+
+\end{textblock}
+
+\begin{textblock}{7.0}(8,10.1)
 
 \hrule\medskip
 \Head{Parameter Learning}
 
+\begin{itemize}
 
+\end{itemize}
   
 \end{textblock}
   
