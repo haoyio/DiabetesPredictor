@@ -123,22 +123,21 @@ for row in range(nSamples):
                           for child in graph.getNode(name).getChildren()}
         
         # populate unknown variable with randomly chosen values
-        for name in withheldData[row]:
-          if name in parentValues:
-            parentValues[name] = withheldData[row][name]
-          if name in childrenValues:
-            childrenValues[name] = withheldData[row][name]
+        for nm in withheldData[row]:
+          if nm in parentValues:
+            parentValues[nm] = withheldData[row][nm]
+          if nm in childrenValues:
+            childrenValues[nm] = withheldData[row][nm]
 
         # compute weight/probability
         jProbs.append(pLearn.getParentChildJointProb( \
                       name, nodeValue, parentValues, childrenValues))
       
       # assign value to unknown variable via weighted random sampling
-      newWithheld[name] = weightedChoice(domains[name], jProbs)
-      withheldData[row][name] = newWithheld[name]
-
+      withheldData[row][name] = weightedChoice(domains[name], jProbs)
+      
     # set unknown variables to newly sampled values; something weird with this
-    withheldData[row] = newWithheld
+    # withheldData[row] = newWithheld
   
   # record inferred value for current row
   parentValues = {parent.id : data[row][nameMap[parent.id]] \
