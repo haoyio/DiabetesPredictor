@@ -208,7 +208,7 @@ Xiao Song Mu
   \item Given
   \begin{itemize}
     \item \textbf{Training set} containing standardized patient medical records
-    \item \textbf{Testing set} containing patient medical records with missing information and unknown erroneously recorded data
+    \item \textbf{Testing set} containing patient medical records with missing information and erroneously recorded data
   \end{itemize}
 
   \item Output
@@ -330,9 +330,30 @@ Xiao Song Mu
 
 \begin{itemize}
   
-  \item \textbf{Best structure} We picked the top 8 structures based on the Bayesian score, ran parameter learning on them, and tested their prediction accuracies based on classifying test sets using inference (see tables and BN structure below)
+  \item \textbf{Best structure} We picked the top 8 structures based on the Bayesian score, ran parameter learning on them, and tested their prediction accuracies based on classifying test sets using inference
 
-  \item \textbf{Error rates} Varying the number of missing variables, the error rates were 15--18\% on 1,000 test samples, which are competitive with the 16\% baseline
+\end{itemize}
+
+\end{textblock}
+
+\begin{textblock}{7.0}(16,2.75)
+
+\begin{figure}[!h]
+  \centering
+  \hbox{
+    \hspace{-2em}
+    \includegraphics[width=1.1\textwidth]{bn-struct.pdf}
+  }
+  \label{fig3}
+\end{figure}
+
+\end{textblock}
+
+\begin{textblock}{7.0}(16,5.25)
+
+\begin{itemize}
+
+  \item \textbf{Error rates} Varying the number of missing variables, the error rates were 15--19\% on 1,000 test samples, which are competitive with the 16\% baseline
 
   \item \textbf{Runtime} Depending on the number of missing variables, a single prediction can take up to 30 seconds---much more expensive than our baseline
 
@@ -340,22 +361,29 @@ Xiao Song Mu
 
 \end{textblock}
 
-\begin{textblock}{7.0}(16,3.7)
+\begin{textblock}{7.0}(16,6.2)
 
 \begin{figure}[!h]
   \centering
-  \hbox{
-    \hspace{-4em}
-    \includegraphics[width=1.2\textwidth]{bn-struct.pdf}
-  }
+  \includegraphics[trim=3pt 3pt 3pt 10pt, clip, width=0.8\textwidth]{../src/Excel/BayesStructureChart.pdf}
   \label{fig3}
 \end{figure}
 
-\end{textblock}
-
-\begin{textblock}{7.0}(16,7)
-
-
+\begin{table}[htbp!]
+  \begin{minipage}{\textwidth}
+    \centering
+    \caption*{Summary: Classification results with varying number of missing features}
+    \begin{tabular}{|c||c|c|c|c|}
+      \hline
+      \#missing & Error rate & False positive & False negative & Pred time (sec) \\ \hline \hline
+      3 & 0.1662 & 0.0363 & 0.1299 & 3.754 \\ \hline
+      5 & 0.1511 & 0.0302 & 0.1208 & 6.437 \\ \hline
+      8 & 0.1339 & 0.0272 & 0.1067 & 9.672 \\ \hline
+      10 & 0.1299 & 0.0252 & 0.1047 & 11.859 \\ \hline
+    \end{tabular}
+    \label{table:summary}
+  \end{minipage} 
+\end{table}
 
 \medskip
 \hrule\medskip
@@ -369,16 +397,12 @@ Xiao Song Mu
   
   \item Consider different inference methods for runtime and accuracy improvement
 
-  \item Further tests in withholding features dependent on ``diabetes''
-
 \end{itemize}
 
 \medskip
-
 \hrule\medskip
-\Head{Acknowledgments}
 
-We thank the course instructor Prof. Percy Liang, our mentor Billy Jun, the instructor team, and fellow classmates for their reviews and feedback on our project. We acknowledge Kaggle and Practice Fusion for providing the dataset.
+*We thank the course instructor Prof. Percy Liang, our mentor Billy Jun, and the instructor team
 
 \end{textblock}
 
