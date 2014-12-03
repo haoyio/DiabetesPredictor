@@ -207,15 +207,15 @@ Xiao Song Mu
 
   \item Given
   \begin{itemize}
-    \item \emph{Training set} containing standardized patient medical records
-    \item \emph{Testing set} containing patient medical records with missing information and unknown erroneously recorded data
+    \item \textbf{Training set} containing standardized patient medical records
+    \item \textbf{Testing set} containing patient medical records with missing information and unknown erroneously recorded data
   \end{itemize}
 
   \item Output
   \begin{itemize}
-    \item \emph{Bayesian network structure} encoding the conditional dependencies between medical record variables
-    \item \emph{Bayesian network parameters} encoding the conditional probabilities for each variable
-    \item \emph{Probabilistic inference} on the learned Bayesian network (BN) for classification
+    \item \textbf{Bayesian network structure} encoding the conditional dependencies between medical record variables
+    \item \textbf{Bayesian network parameters} encoding the conditional probabilities for each variable
+    \item \textbf{Probabilistic inference} on the learned Bayesian network (BN) for classification
   \end{itemize}
 
   \item To minimize the error rate, including false positives and false negatives, on classifying whether a patient has Type II Diabetes
@@ -235,14 +235,14 @@ Xiao Song Mu
 \begin{multicols}{2}
   \begin{itemize}
     
-    \item \emph{Baseline} of logistic regression
+    \item \textbf{Baseline: logistic regression}
     \begin{itemize}
       \item Basic features: age, BMI, ...
       \item 10\% hold-out cross validation
       \item False positive rate of 0.7\%, false negative rate of 15.3\%, and an error rate of 16\% (84\% accuracy)
     \end{itemize}
 
-    \item \emph{Oracle}
+    \item \textbf{Oracle}
     \begin{itemize}
       \item Ideal oracle: experienced physicians (impractical)
       \item Use as surrogate diabetes tests vetted by HHS (HBA1c, FPG, and OGTT; 85--95\% accuracy)
@@ -256,13 +256,13 @@ Xiao Song Mu
 \begin{textblock}{7.0}(8,1.5)
 
 \hrule\medskip
-\Head{Structure Learning as a Search Problem}\vspace{-1em}
+\Head{Structure Learning as a Search Problem}
 
 \begin{itemize}
   
   \item \textbf{NP-hard search problem} Finding the best set of edges is hard as the number of BNs (DAGs) grows superexponentially with the number of nodes
 
-  \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009)
+  \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score with a uniform Dirichlet prior over structures, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009)
 
   \item \textbf{Feature selection} We manually selected 27 discretized features (nodes) according to ICD9 disease groupings to limit the search space
 
@@ -270,8 +270,7 @@ Xiao Song Mu
 
   By maintaining a tabu list of recent operators we applied (e.g., adding an edge to the existing BN) and not considering operators that reverse the effect of recently applied operators, the heuristic avoids getting stuck at local optima
 
-  \medskip \hrule
-  \begin{addmargin}[0em]{2em}% 5em left, 2em right
+  \begin{addmargin}[1em]{2em}% 5em left, 2em right
     \begin{leftbar}
       \begin{tabbing}
         {\bf given} training set \(\mathcal{D}\), structure prior \(P(\mathcal{G})\), node set \(\mathcal{N}\), tabu list size \(L\) \\*[\smallskipamount]
@@ -286,47 +285,67 @@ Xiao Song Mu
       \end{tabbing}
     \end{leftbar}
   \end{addmargin}
-  \hrule
+  
+  \item \textbf{Resulting structures} Produced 8 structures; avg 31 min with Julia implementation on an Intel Xeon E5-2650 processor (2.60 GHz), 32 GB RAM
 
 \end{itemize}
 
-\end{textblock}
-
-\begin{textblock}{7.0}(8,6.8)
-
-\begin{itemize}
-
-  \item \textbf{Resulting structure} Below is the best structure out of 20 trials with a uniform Dirichlet prior over network structures
-  \begin{figure}[!h]
-    \centering
-    \hbox{
-      \hspace{-4em}
-      \includegraphics[width=1.2\textwidth]{bn-struct.pdf}
-    }
-    \label{fig3}
-  \end{figure}
-
-\end{itemize}
-
-\end{textblock}
-
-\begin{textblock}{7.0}(8,10.1)
-
+\medskip
 \hrule\medskip
 \Head{Parameter Learning}
 
 \begin{itemize}
+  
+  \item \textbf{MLE with Laplace smoothing} We use MLE with Laplace smoothing to learn the conditional probabilities associated with each node
+
+  \item \textbf{Limited dataset} Given dataset is small in comparison to number of possible variable values, which motivates our use of Laplace smoothing
+
+  \item \textbf{Relational database} We store our data in a relational database and optimize data retrieval by applying indices over sets of variable names
 
 \end{itemize}
-  
+
+\medskip
+\hrule\medskip
+\Head{Approximate Probabilistic Inference}
+
+\begin{itemize}
+
+  \item \textbf{Classification using BN} Assign label to whichever inferred probability is higher; probabilities are over the missing variables and observed ones
+
+  \item \textbf{NP-hard} Given our large BN structure and variable domain sizes, exact inference is infeasible (exponential time complexity in the worst case)
+
+  \item \textbf{Gibbs sampling} We use a Markov Chain Monte Carlo technique where, in the limit, samples are drawn exactly from the joint distribution over the unknown variables given the observed variables
+
+  Since samples are not independent, we discard the first 100 samples (burn-in period) and keep only every 10th sample (thinning)
+
+\end{itemize}
+
 \end{textblock}
+
   
 \begin{textblock}{7.0}(16,1.5)
 
 \hrule\medskip
-\Head{Approximate Probabilistic Inference}
+\Head{Results and Analysis}
 
 
+
+\end{textblock}
+
+\begin{textblock}{7.0}(16,3)
+
+\begin{figure}[!h]
+  \centering
+  \hbox{
+    \hspace{-4em}
+    \includegraphics[width=1.2\textwidth]{bn-struct.pdf}
+  }
+  \label{fig3}
+\end{figure}
+
+\end{textblock}
+
+\begin{textblock}{7.0}(16,7)
 
 \hrule\medskip
 \Head{Conclusion}
@@ -338,7 +357,7 @@ Xiao Song Mu
 \hrule\medskip
 \Head{Acknowledgments}
 
-We thank Professor Liang and the instructor team, as well as fellow classmates for their help on our project.
+We thank the course instructor Prof. Percy Liang, our mentor Billy Jun, the instructor team, and fellow classmates for their help on our project. We acknowledge Kaggle and Practice Fusion for providing the dataset.
 
 \end{textblock}
 
