@@ -1,0 +1,33 @@
+['sBP', 'weight', 'height', 'code240279', 'code390459', 'code780799', 'dBP', 'BMI', 'state', 'code360389', 'code520579', 'code001139', 'code140239', 'code760779', 'code630679', 'code580629', 'code710739', 'code460519', 'diabetes', 'code280289', 'code290319', 'gender', 'age', 'code320359', 'code680709', 'code800999', 'code740759']
+27 nodes loaded into graph
+8954 rows loaded
+Running Gibbs sampling for 50 samples
+Sample number 1 took 48.430229187 sec
+Sample number 2 took 41.3028028011 sec
+Sample number 3 took 45.4854249954 sec
+Sample number 4 took 42.2492589951 sec
+Sample number 5 took 38.1048138142 sec
+Sample number 6 took 35.6485199928 sec
+Sample number 7 took 39.6012690067 sec
+Sample number 8 took 31.045992136 sec
+Sample number 9 took 32.5555639267 sec
+Sample number 10 took 34.3150451183 sec
+Sample number 11 took 36.6224348545 sec
+Sample number 12 took 36.5677089691 sec
+Sample number 13 took 39.989606142 sec
+Sample number 14 took 40.1501059532 sec
+Sample number 15 took 37.1472861767 sec
+Sample number 16 took 39.0639262199 sec
+Sample number 17 took 53.0718319416 sec
+Sample number 18 took 45.1965010166 sec
+Sample number 19 took 38.2876770496 sec
+Sample number 20 took 55.4608819485 sec
+Sample number 21 took 41.4158949852 sec
+Sample number 22 took 42.9269750118 sec
+Sample number 23 took 43.6528449059 sec
+Sample number 24 took 33.5439560413 sec
+Sample number 25 took 41.4569878578 sec
+Sample number 26 took 42.01486516 sec
+Sample number 27 took 37.0272641182 sec
+Sample number 28 took 41.1727819443 sec
+Sample number 29 took 40.1693019867 sec
