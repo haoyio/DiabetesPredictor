@@ -264,13 +264,13 @@ Xiao Song Mu
 
   \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score with a uniform Dirichlet prior over structures, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009)
 
-  \item \textbf{Feature selection} We manually selected 27 discretized features (nodes) according to ICD9 disease groupings to limit the search space
+  \item \textbf{Feature selection} We selected 27 discretized features (nodes) for the 10,000 samples according to ICD9 disease groupings to limit the search space
 
   \item \textbf{Tabu search} To find the optimal structure, we use a hill-climbing algorithm that maximizes the ``fitness'' of the BN based on the Bayesian score
 
   By maintaining a tabu list of recent operators we applied (e.g., adding an edge to the existing BN) and not considering operators that reverse the effect of recently applied operators, the heuristic avoids getting stuck at local optima
 
-  \begin{addmargin}[1em]{2em}% 5em left, 2em right
+  \begin{addmargin}[1em]{2em}% 1em left, 2em right
     \begin{leftbar}
       \begin{tabbing}
         {\bf given} training set \(\mathcal{D}\), structure prior \(P(\mathcal{G})\), node set \(\mathcal{N}\), tabu list size \(L\) \\*[\smallskipamount]
@@ -286,7 +286,7 @@ Xiao Song Mu
     \end{leftbar}
   \end{addmargin}
   
-  \item \textbf{Resulting structures} Produced 8 structures; avg 31 min with Julia implementation on an Intel Xeon E5-2650 processor (2.60 GHz), 32 GB RAM
+  \item \textbf{Resulting structures} Produced 20 structures; avg 31 min with Julia implementation on an Intel Xeon E5-2650 processor (2.60 GHz), 32 GB RAM
 
 \end{itemize}
 
@@ -296,7 +296,7 @@ Xiao Song Mu
 
 \begin{itemize}
   
-  \item \textbf{MLE with Laplace smoothing} We use MLE with Laplace smoothing to learn the conditional probabilities associated with each node
+  \item \textbf{MLE with Laplace smoothing} We use MLE with Laplace smoothing to learn the conditional probabilities associated with each node (9,000 samples)
 
   \item \textbf{Limited dataset} Given dataset is small in comparison to number of possible variable values, which motivates our use of Laplace smoothing
 
@@ -328,11 +328,19 @@ Xiao Song Mu
 \hrule\medskip
 \Head{Results and Analysis}
 
+\begin{itemize}
+  
+  \item \textbf{Best structure} We picked the top 8 structures based on the Bayesian score, ran parameter learning on them, and tested their prediction accuracies based on classifying test sets using inference (see tables and BN structure below)
 
+  \item \textbf{Error rates} Varying the number of missing variables, the error rates were 15--18\% on 1,000 test samples, which are competitive with the 16\% baseline
+
+  \item \textbf{Runtime} Depending on the number of missing variables, a single prediction can take up to 30 seconds---much more expensive than our baseline
+
+\end{itemize}
 
 \end{textblock}
 
-\begin{textblock}{7.0}(16,3)
+\begin{textblock}{7.0}(16,3.7)
 
 \begin{figure}[!h]
   \centering
@@ -347,17 +355,30 @@ Xiao Song Mu
 
 \begin{textblock}{7.0}(16,7)
 
+
+
+\medskip
 \hrule\medskip
-\Head{Conclusion}
+\Head{Conclusion and Extensions}
 
+\begin{itemize}
+  
+  \item Our model is suitable for diabetes prediction on existing databases (even with incomplete records) to detect patients at risk for diabetes
+  
+  \item Incorporate expert knowledge in feature selection and deciding the structure
+  
+  \item Consider different inference methods for runtime and accuracy improvement
 
+  \item Further tests in withholding features dependent on ``diabetes''
+
+\end{itemize}
 
 \medskip
 
 \hrule\medskip
 \Head{Acknowledgments}
 
-We thank the course instructor Prof. Percy Liang, our mentor Billy Jun, the instructor team, and fellow classmates for their help on our project. We acknowledge Kaggle and Practice Fusion for providing the dataset.
+We thank the course instructor Prof. Percy Liang, our mentor Billy Jun, the instructor team, and fellow classmates for their reviews and feedback on our project. We acknowledge Kaggle and Practice Fusion for providing the dataset.
 
 \end{textblock}
 
