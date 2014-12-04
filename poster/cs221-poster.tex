@@ -140,7 +140,7 @@ Xiao Song Mu
 {
 \Large
 \color{bluegray}
-\emph{CS 221 Aritificial Intelligence: Principles and Techniques Class Project}
+\emph{CS 221 Artificial Intelligence: Principles and Techniques Class Project}
 }
 \end{textblock}
 
@@ -207,15 +207,15 @@ Xiao Song Mu
 
   \item Given
   \begin{itemize}
-    \item \emph{Training set} containing standardized patient medical records
-    \item \emph{Testing set} containing patient medical records with missing information and unknown erroneously recorded data
+    \item \textbf{Training set} containing standardized patient medical records
+    \item \textbf{Testing set} containing patient medical records with missing information and erroneously recorded data
   \end{itemize}
 
   \item Output
   \begin{itemize}
-    \item \emph{Bayesian network structure} encoding the conditional dependencies between medical record variables
-    \item \emph{Bayesian network parameters} encoding the conditional probabilities for each variable
-    \item \emph{Probabilistic inference} on the learned Bayesian network for classification
+    \item \textbf{Bayesian network structure} encoding the conditional dependencies between medical record variables
+    \item \textbf{Bayesian network parameters} encoding the conditional probabilities for each variable
+    \item \textbf{Probabilistic inference} on the learned Bayesian network (BN) for classification
   \end{itemize}
 
   \item To minimize the error rate, including false positives and false negatives, on classifying whether a patient has Type II Diabetes
@@ -226,170 +226,183 @@ Xiao Song Mu
 \hrule\medskip
 \Head{Evaluation Criteria}
 
-\begin{itemize}
-  
-  \item \emph{Baseline} of logistic regression
-  \begin{itemize}
-    \item Feature vector with basic data including height, weight, body mass index...
-    \item Cross validation with 10\%-hold-out on the training data
-    \item Obtained a false positive rate of 0.7\% and false negative rate of 15.3\% for a total error rate of 16\% (84\% accuracy)
-  \end{itemize}
+\begin{figure}[!h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{eval-fig.pdf}
+  \label{fig2}
+\end{figure}
 
-  \item \emph{Oracle}
+\begin{multicols}{2}
   \begin{itemize}
-    \item Ideal oracle would be experienced physicians who have correctly advised patients to test for diabetes given their medical history
-    \item Infeasible time-wise and financially for the scope of our project
-    \item Use as surrogate measures the test accuracies of established diabetes tests vetted by the US Department of Health and Human Services
-    \item Specifically, HBA1c, FPG, and OGTT, which have 85--95\% accuracy
-  \end{itemize}
+    
+    \item \textbf{Baseline: logistic regression}
+    \begin{itemize}
+      \item Basic features: age, BMI, ...
+      \item 10\% hold-out cross validation
+      \item False positive rate of 0.7\%, false negative rate of 15.3\%, and an error rate of 16\% (84\% accuracy)
+    \end{itemize}
 
-\end{itemize}
+    \item \textbf{Oracle}
+    \begin{itemize}
+      \item Ideal oracle: experienced physicians (impractical)
+      \item Use as surrogate diabetes tests vetted by HHS (HBA1c, FPG, and OGTT; 85--95\% accuracy)
+    \end{itemize}
+
+  \end{itemize}
+\end{multicols}
 
 \end{textblock}
 
 \begin{textblock}{7.0}(8,1.5)
 
 \hrule\medskip
-\Head{Problem Formulation}
-
-The design variables for our truss optimization are:
-\begin{itemize}
-  
-  \item \emph{Cross sectional areas} \(a \in \mathbf{R}^{m} \), where \(a_{i}\in \mathbf{R}\) is the area of the \(i^{th}\) bar
-
-  \item \emph{Coordinates \(x \in \mathbf{R}^{2n} \)}, where \(x_{j}\in\mathbf{R}^{2}\) are the coordinates of the \(j^{th}\) node
-
-\end{itemize}
-
-Our problem data are:
-\begin{itemize}
-  
-  \item \emph{Loading forces} \(F\in\mathbf{R}^{2n}\), where \(F_{j}\in\mathbf{R}^{2}\) is the load on the \(j^{th}\) node
-
-  \item \emph{Material densities \(\rho_{1},\ldots,\rho_{m} \in \mathbf{R} \)} of bars
-
-  \item \emph{Young's moduli \(E_{1},\ldots,E_{m} \in \mathbf{R} \)} characterizing the elasticities of the bars
-
-  \item \emph{Bar lengths \(L_{1},\ldots,L_{m} \in \mathbf{R} \)}, which are dependent on node coordinates \(x\)
-
-\end{itemize}
+\Head{Structure Learning as a Search Problem}
 
 \begin{itemize}
   
-  \item \emph{Force mapping matrix \(P(\mathcal{X})\in\mathbf{R}^{m\times2n}\)}, which relates loads \(F\) to the internal stresses experienced by the bars, \(f\in\mathbf{R}^m \); implicit in \(P\) is an adjacency matrix relating each bar to its attachment points
+  \item \textbf{NP-hard search problem} Finding the best set of edges is hard as the number of BNs (DAGs) grows superexponentially with the number of nodes
 
-  \item \emph{Stiffness matrix \(K(\mathcal{X}, a, L)\)}, which determines the amount of flex in the truss
-  \[K = \sum\limits_{i=1}^{m}\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}p_{i}^{T},\]
-  where \( p_{1},\ldots,p_{m} \) are the columns of the force mapping matrix \(P\)
+  \item \textbf{Bayesian score} To evaluate the BN, we use the Bayesian score with a uniform Dirichlet prior over structures, which optimally balances the complexity of the BN structure with the available data (Koller and Friedman, 2009)
+
+  \item \textbf{Feature selection} We selected 27 discretized features (nodes) for the 10,000 samples according to ICD9 disease groupings to limit the search space
+
+  \item \textbf{Tabu search} To find the optimal structure, we use a hill-climbing algorithm that maximizes the ``fitness'' of the BN based on the Bayesian score
+
+  By maintaining a tabu list of recent operators we applied (e.g., adding an edge to the existing BN) and not considering operators that reverse the effect of recently applied operators, the heuristic avoids getting stuck at local optima
+
+  \begin{addmargin}[1em]{2em}% 1em left, 2em right
+    \begin{leftbar}
+      \begin{tabbing}
+        {\bf given} training set \(\mathcal{D}\), structure prior \(P(\mathcal{G})\), node set \(\mathcal{N}\), tabu list size \(L\) \\*[\smallskipamount]
+        {\bf initialize} random BN \(\mathcal{G}\), tabu list \(\mathcal{T}\), valid operations \(\mathcal{O}\) \\*[\smallskipamount]
+        {\bf repeat} \\
+        \qquad \= 1.\ if \(\left|\mathcal{O}\right|\) too large, generate random subset of valid operations \(\hat{\mathcal{O}}\subset\mathcal{O}\) \\
+        \> 2.\ find best operation: \(\text{Op} := \argmax_{\text{Op}\in\hat{\mathcal{O}}\backslash \mathcal{T}}\text{BayesScore}(\text{Op}(\mathcal{G}))\) \\
+        \> 3.\ set \(\mathcal{G}:=\text{Op}(\mathcal{G})\) and \(\mathcal{T}:=\mathcal{T}\cup\left\{\text{reverse}(\text{Op})\right\}\) \\
+        \> 4.\ remove operation added \(L\) iterations ago to \(\mathcal{T}\) from it \\
+        {\bf until} \(\text{BayesScore}(\mathcal{G})\) converges \\*[\smallskipamount]
+        {\bf return} \(\mathcal{G}\)
+      \end{tabbing}
+    \end{leftbar}
+  \end{addmargin}
+  
+  \item \textbf{Resulting structures} Produced 20 structures; avg 31 min with Julia implementation on an Intel Xeon E5-2650 processor (2.60 GHz), 32 GB RAM
 
 \end{itemize}
-
-Our truss design optimization is further characterized by the following variables, whose relations contain all of the physics of the problem:
-\begin{itemize}
-
-  \item \emph{Node deflections} \(u\in\mathbf{R}^{2n}\) due to the truss flexing under loads \(F\), where \(u_{j}\in\mathbf{R}^{2}\) is the deflection of the \(j^{th}\) node; by Hooke's Law, we have the force balance \(F = Ku\)
-
-  \item \emph{Internal stress \(f_{i}\in\mathbf{R}\)} experienced by each bar due to the node deflections
-  \[f_{i} = -\frac{E_{i}a_{i}}{L_{i}^{2}}p_{i}^{T}u,\ \ \ i=1,\ldots,m\]
-
-  \item \emph{Stored elastic energy} \(\Theta = \frac{1}{2}F^{T}u\), which we minimize in order to maximize the truss stiffness
-
-\end{itemize}
-
 
 \medskip
-
 \hrule\medskip
-\Head{An Alternating Convex Optimization Approach}
-
-The minimization of \(\Theta\) in \( \left(a,x\right) \) that follows from our formulation above is non-convex. As a heuristic to solve the optimization problem, we first optimize over the bar sizes \(a\), and then over the node coordinates \(x\):
+\Head{Parameter Learning}
 
 \begin{itemize}
-\item We perform a linear change of coordinates to cast the bar sizing problem as a second-order cone program (SOCP) in \(w, v\in\mathbf{R}^{m}\):
-  \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
-  \[w_{i} - v_{i} = a_{i}\]
-  The value of \(w_{i} + v_{i}\) is therefore the spring energy stored in the \(i^{th}\) bar
-
-\item Holding \(x\) constant, find the bar cross sectional areas \(a\) that minimize \(\Theta\):
-{\small
-  \begin{equation}
-    \begin{array}{ll}
-      \mbox{minimize}   & \Theta = 1^{T}\left(w+v\right)\\
-      \mbox{subject to} & Pf + F = 0\\
-                & M\left(w-v\right) \leq d\\
-                & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m \\
-                    & 1^{T}\left( w - v \right) \leq W^{max}
-    \end{array}
-    \label{cvxopt1}
-  \end{equation}
-}
-\item We then perform an affine change of coordinates to cast the node positioning problem as an SOCP in \(w, v\in\mathbf{R}^{m}\) (different from above):
-  \[w_{i} + v_{i} = -\frac{1}{2}\left(u^{T}P\right)_{i}f_{i},\]
-  \[w_{i} - v_{i} = \frac{2p_{i}^{T}y_{i}}{L_{i}} + 1\]
-\end{itemize}
   
+  \item \textbf{MLE with Laplace smoothing} We use MLE with Laplace smoothing to learn the conditional probabilities associated with each node (9,000 samples)
+
+  \item \textbf{Limited dataset} Given dataset is small in comparison to number of possible variable values, which motivates our use of Laplace smoothing
+
+  \item \textbf{Relational database} We store our data in a relational database and optimize data retrieval by applying indices over sets of variable names
+
+\end{itemize}
+
+\medskip
+\hrule\medskip
+\Head{Approximate Probabilistic Inference}
+
+\begin{itemize}
+
+  \item \textbf{Classification using BN} Assign label to whichever inferred probability is higher; probabilities are over the missing variables and observed ones
+
+  \item \textbf{NP-hard} Given our large BN structure and variable domain sizes, exact inference is infeasible (exponential time complexity in the worst case)
+
+  \item \textbf{Gibbs sampling} We use a Markov Chain Monte Carlo technique where, in the limit, samples are drawn exactly from the joint distribution over the unknown variables given the observed variables
+
+  Since samples are not independent, we discard the first 100 samples (burn-in period) and keep only every 10th sample (thinning)
+
+\end{itemize}
+
 \end{textblock}
+
   
 \begin{textblock}{7.0}(16,1.5)
 
-\hrule
-\medskip
-(Cont'd)
+\hrule\medskip
+\Head{Results and Analysis}
+
+\begin{itemize}
+  
+  \item \textbf{Best structure} We picked the top 8 structures based on the Bayesian score, ran parameter learning on them, and tested their prediction accuracies based on classifying test sets using inference
+
+\end{itemize}
+
+\end{textblock}
+
+\begin{textblock}{7.0}(16,2.75)
+
+\begin{figure}[!h]
+  \centering
+  \hbox{
+    \hspace{-2em}
+    \includegraphics[width=1.1\textwidth]{bn-struct.pdf}
+  }
+  \label{fig3}
+\end{figure}
+
+\end{textblock}
+
+\begin{textblock}{7.0}(16,5.25)
 
 \begin{itemize}
 
-  \item Holding \(a\) constant, find a set of displacements \(y\in\mathbf{R}^{2n}\) that ``shift'' the node coordinates \(x\) from their original positions and minimize \(\Theta\):
-  {\small
-  \begin{equation}
-    \begin{array}{ll}
-      \mbox{minimize}   & \Theta = 1^{T}\left(w+v \right)\\
-      \mbox{subject to} & Pf+F = 0\\
-                        & \frac{1}{2}\left( \left( w_{i} - v_{i} \right) - 1 \right) = \frac{p_{i}^{T}y_{i}}{L_{i}},\ \ \ i = 1,\ldots,m\\
-                        & \norm[\bigg]{ \left( v_{i},\frac{L_{i}}{\sqrt{E_{i}a_{i}}}f_{i} \right)}_{2}\leq w_{i},\ \ \ i = 1,\ldots,m\\
-                        & \|y_{i}\|_{2} \leq \epsilon_{i},\ \ \ i = 1,\ldots,m\\
-                            & g\left(y\right) = 0,
-    \end{array}
-    \label{cvxopt2}
-  \end{equation}
-  }
-  where \(g(y) = 0 \) enforces truss symmetry, and \(\|y_{i}\|_{2} \leq\epsilon_{i}\) restrict node shifts.
+  \item \textbf{Error rates} Varying the number of missing variables, the error rates were 15--19\% on 1,000 test samples, which are competitive with the 16\% baseline
+
+  \item \textbf{Runtime} Depending on the number of missing variables, a single prediction can take up to 30 seconds---much more expensive than our baseline
 
 \end{itemize}
+
+\end{textblock}
+
+\begin{textblock}{7.0}(16,6.2)
+
+\begin{figure}[!h]
+  \centering
+  \includegraphics[trim=3pt 3pt 3pt 10pt, clip, width=0.8\textwidth]{../src/Excel/BayesStructureChart.pdf}
+  \label{fig3}
+\end{figure}
+
+\begin{table}[htbp!]
+  \begin{minipage}{\textwidth}
+    \centering
+    \caption*{Summary: Classification results with varying number of missing features}
+    \begin{tabular}{|c||c|c|c|c|}
+      \hline
+      \#missing & Error rate & False positive & False negative & Pred time (sec) \\ \hline \hline
+      3 & 0.1662 & 0.0363 & 0.1299 & 3.754 \\ \hline
+      5 & 0.1511 & 0.0302 & 0.1208 & 6.437 \\ \hline
+      8 & 0.1339 & 0.0272 & 0.1067 & 9.672 \\ \hline
+      10 & 0.1299 & 0.0252 & 0.1047 & 11.859 \\ \hline
+    \end{tabular}
+    \label{table:summary}
+  \end{minipage} 
+\end{table}
+
+\medskip
+\hrule\medskip
+\Head{Conclusion and Extensions}
+
+\begin{itemize}
   
-In our heuristic, we first discretize the physical space as in traditional approaches to obtain \(\hat{\mathcal{D}}\), and alternate between solving \eqref{cvxopt1} and \eqref{cvxopt2} in each iteration:
-\begin{addmargin}[2em]{0em}% 1em left, 2em right
-  \begin{leftbar}
-  {\small
-    \begin{tabbing}
-      {\bf given} \(\mathcal{X}^{\text{fixed}}\), \(\mathcal{F} \), $ \mathcal{\hat{D}} $ \\*[\smallskipamount]
-      Generate set of node coordinates \(x^{0}\) from $\mathcal{\hat{D}} $, set \(x:=x^{0}\) \\*[\smallskipamount]
-      {\bf repeat} \\
-      \qquad \= 1.\ Given \(x\), obtain \(a\) and \(\Theta_{1} \) as the solution to and objective of \eqref{cvxopt1}\\
-      \> 2.\ Given \(a\), obtain \(y\) and \(\Theta_{2}\) as the solution to and objective of \eqref{cvxopt2}, set \(x := x + y\) \\
-      \> 3. {\bf break if} \(\Theta_{1}\) and \(\Theta_{2}\) converge \\*[\smallskipamount]
-      {\bf return} \(a\), \(x\)
-    \end{tabbing}
-  }
-  \end{leftbar}
-\end{addmargin}
-\medskip
+  \item Our model is suitable for diabetes prediction on existing databases (even with incomplete records) to detect patients at risk for diabetes
+  
+  \item Incorporate expert knowledge in feature selection and deciding the structure
+  
+  \item Consider different inference methods for runtime and accuracy improvement
 
-\hrule\medskip
-\Head{Example: Bridge Design}
-
-
-This problem has 791 variables and 219 constraints. Out of several solvers, SCS was the fastest at 0.3 s per iteration (vs. 2.0 s with SeDuMi at comparable accuracy requirements). SCS's speed advantage scales with problem size (\url{~}100 times faster than SeDuMi with 16000 variables, 4000 constraints).
-\medskip
-
-\hrule\medskip
-\Head{Conclusion}\\
-Our alternating convex optimization approach presents a promising tool to solving the non-convex truss design problem. Future work should extend the model to 3-D and compare this approach to other existing methods.
+\end{itemize}
 
 \medskip
-
 \hrule\medskip
-\Head{Acknowledgments}\\
-We thank Professor Liang and the instructor team, as well as fellow classmates for their help on our project.
+
+*We thank the course instructor Prof. Percy Liang, our mentor Billy Jun, and the instructor team
 
 \end{textblock}
 

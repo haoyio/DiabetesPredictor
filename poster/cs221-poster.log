@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.6)  2 DEC 2014 03:09
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.11.6)  2 DEC 2014 20:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -623,7 +623,11 @@ Package: multicol 2014/10/28 v1.8i multicolumn formatting (FMi)
 )
 Grid set 23 x 12 = 109.506pt x 149.66148pt
 TextBlockOrigin set to 40mm x 40mm
-(./cs221-poster.aux)
+(./cs221-poster.aux
+
+LaTeX Warning: Label `fig3' multiply defined.
+
+)
 \openout1 = `cs221-poster.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 109.
@@ -752,49 +756,58 @@ File: intro-fig.pdf Graphic file (type pdf)
 Package pdftex.def Info: intro-fig.pdf used on input line 175.
 (pdftex.def)             Requested size: 650.43pt x 147.21233pt.
 
+<eval-fig.pdf, id=5, 511.9125pt x 141.52875pt>
+File: eval-fig.pdf Graphic file (type pdf)
+ <use eval-fig.pdf>
+Package pdftex.def Info: eval-fig.pdf used on input line 231.
+(pdftex.def)             Requested size: 613.23592pt x 169.5529pt.
 
-LaTeX Font Warning: Font shape `OT1/cmss/m/it' in size <24.88> not available
-(Font)              Font shape `OT1/cmss/m/sl' tried instead on input line 210.
+<bn-struct.pdf, id=6, 978.855pt x 440.05405pt>
+File: bn-struct.pdf Graphic file (type pdf)
+ <use bn-struct.pdf>
+Package pdftex.def Info: bn-struct.pdf used on input line 345.
+(pdftex.def)             Requested size: 843.20085pt x 379.08371pt.
 
+<../src/Excel/BayesStructureChart.pdf, id=7, 627.34375pt x 391.4625pt>
+File: ../src/Excel/BayesStructureChart.pdf Graphic file (type pdf)
 
-
-Overfull \hbox (5.2098pt too wide) in paragraph at lines 303--304
-[]\OT1/cmss/m/n/43 An Al-ter-nat-ing Con-vex Op-ti-miza-tion Ap-proach[] 
- []
-
-[1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
+<use ../src/Excel/BayesStructureChart.pdf>
+Package pdftex.def Info: ../src/Excel/BayesStructureChart.pdf used on input lin
+e 368.
+(pdftex.def)             Requested size: 613.23592pt x 373.54137pt.
+ [1{/usr/local/texlive/2014/texmf-var/fonts/map/pdftex/updmap/pdftex.map}
 Non-PDF special ignored!
 
 
 Non-PDF special ignored!
-Non-PDF special ignored! <./intro-fig.pdf>] (./cs221-poster.aux)
+Non-PDF special ignored! <../src/Excel/BayesStructureChart.pdf> <./intro-fig.pd
+f> <./eval-fig.pdf> <./bn-struct.pdf>] (./cs221-poster.aux)
 
 LaTeX Font Warning: Some font shapes were not available, defaults substituted.
 
+
+LaTeX Warning: There were multiply-defined labels.
+
  ) 
 Here is how much of TeX's memory you used:
- 15151 strings out of 493109
- 294995 string characters out of 6135004
- 375996 words of memory out of 5000000
- 18320 multiletter control sequences out of 15000+600000
- 12741 words of font info for 45 fonts, out of 8000000 for 9000
+ 15154 strings out of 493109
+ 295156 string characters out of 6135004
+ 372041 words of memory out of 5000000
+ 18321 multiletter control sequences out of 15000+600000
+ 9542 words of font info for 34 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 55i,12n,54p,429b,324s stack positions out of 5000i,500n,10000p,200000b,80000s
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb
-></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb>
-</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb><
-/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></u
-sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr
-/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss12.pfb></usr/
-local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></usr/l
-ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></usr/
-local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb></usr/
-local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/l
-ocal/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb>
-Output written on cs221-poster.pdf (1 page, 151229 bytes).
+ 55i,11n,54p,429b,358s stack positions out of 5000i,500n,10000p,200000b,80000s
+</usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb
+></usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb><
+/usr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmss17.pfb></us
+r/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssbx10.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmssi17.pfb></u
+sr/local/texlive/2014/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on cs221-poster.pdf (1 page, 393922 bytes).
 PDF statistics:
- 90 PDF objects out of 1000 (max. 8388607)
- 62 compressed objects within 1 object stream
+ 126 PDF objects out of 1000 (max. 8388607)
+ 87 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 18 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 39 words of extra memory for PDF output out of 10000 (max. 10000000)
 
