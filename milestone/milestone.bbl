@@ -1,0 +1,14 @@
+\newcommand{\etalchar}[1]{$^{#1}$}
+\begin{thebibliography}{M{\etalchar{+}}04}
+
+\bibitem[KF09]{KF:09}
+D.~Koller and N.~Friedman.
+\newblock {\em Probabilistic Graphical Models: Principles and Techniques}.
+\newblock MIT Press, 2009.
+
+\bibitem[M{\etalchar{+}}04]{McK:04}
+B.~McKay et~al.
+\newblock Acyclic digraphs and eigenvalues of (0,1)-matrices.
+\newblock {\em Journal of Integer Sequences}, 7, 2004.
+
+\end{thebibliography}
